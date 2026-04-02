@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIISC | AI Institute of South Carolina</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --garnet: #73000a;
+            --garnet-bright: #a01525;
+            --blue: #1a8fc4;
+            --teal: #18b5a0;
+            --orange: #e8862a;
+            --pink: #d64a7b;
+            --yellow: #e8c840;
+            --dark: #1c2030;
+            --darker: #141822;
+            --darkest: #0f1218;
+            --white: #ffffff;
+            --cream: #f0ebe0;
+            --gray: #6b7280;
+            --light-gray: #e2ddd4;
+        }
+
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+        a { color: inherit; text-decoration: none; }
+
+        /* ===== AMBIENT COLOR BLOBS (page-wide) ===== */
+        .ambient-blobs {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            overflow: hidden;
+        }
+        .blob {
+            position: absolute; border-radius: 50%;
+            filter: blur(100px);
+            animation: blobDrift 25s ease-in-out infinite;
+        }
+        .blob-1 { width: 700px; height: 700px; background: rgba(26,143,196,0.13); top: -10%; left: -5%; }
+        .blob-2 { width: 600px; height: 600px; background: rgba(232,134,42,0.11); top: 20%; right: -8%; animation-delay: -5s; animation-duration: 30s; }
+        .blob-3 { width: 650px; height: 650px; background: rgba(214,74,123,0.09); top: 45%; left: 10%; animation-delay: -10s; animation-duration: 28s; }
+        .blob-4 { width: 550px; height: 550px; background: rgba(24,181,160,0.11); top: 65%; right: 5%; animation-delay: -15s; animation-duration: 32s; }
+        .blob-5 { width: 600px; height: 600px; background: rgba(115,0,10,0.07); top: 85%; left: -5%; animation-delay: -20s; animation-duration: 26s; }
+        .blob-6 { width: 500px; height: 500px; background: rgba(232,200,64,0.09); top: 35%; left: 50%; animation-delay: -8s; animation-duration: 35s; }
+        .blob-7 { width: 550px; height: 550px; background: rgba(26,143,196,0.08); top: 55%; left: 30%; animation-delay: -12s; animation-duration: 33s; }
+        .blob-8 { width: 480px; height: 480px; background: rgba(214,74,123,0.07); top: 10%; right: 25%; animation-delay: -18s; animation-duration: 27s; }
+
+        @keyframes blobDrift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -30px) scale(1.08); }
+            50% { transform: translate(-25px, 35px) scale(0.94); }
+            75% { transform: translate(30px, 15px) scale(1.05); }
+        }
+
+        /* make all main content sit above blobs */
+        nav, section, .partners-bar, .stats-band, .cta-band, footer, .services-section {
+            position: relative; z-index: 1;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            height: 76px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 3rem;
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(20px) saturate(1.4);
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            transition: box-shadow 0.3s;
+        }
+        nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.06); }
+        .logo {
+            display: flex; align-items: center;
+        }
+        .logo img {
+            height: 64px; width: auto;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+        .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--gray); transition: color 0.2s; }
+        .nav-links a:hover { color: var(--garnet); }
+        .nav-links .cta {
+            padding: 0.4rem 1rem; background: var(--garnet); color: white !important;
+            border-radius: 6px; font-weight: 600; font-size: 0.8rem;
+            transition: background 0.2s;
+        }
+        .nav-links .cta:hover { background: var(--garnet-bright); }
+        .burger { display: none; background: none; border: none; cursor: pointer; }
+        .burger span { display: block; width: 20px; height: 2px; background: var(--dark); margin: 4px 0; }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: grid; grid-template-columns: 1fr 1fr;
+            align-items: center;
+            padding: 5rem 4rem 4rem;
+            gap: 3rem;
+            background: linear-gradient(135deg, #f0ebe0 0%, #ece5d8 40%, #e6dfd2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        /* colorful accent blobs behind hero */
+        .hero::before {
+            content: ''; position: absolute;
+            width: 650px; height: 650px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(26,143,196,0.12), rgba(24,181,160,0.05), transparent 70%);
+            top: -150px; right: 5%; pointer-events: none;
+            animation: blobDrift 20s ease-in-out infinite;
+        }
+        .hero::after {
+            content: ''; position: absolute;
+            width: 550px; height: 550px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(232,134,42,0.1), rgba(214,74,123,0.04), transparent 70%);
+            bottom: -80px; left: 0%; pointer-events: none;
+            animation: blobDrift 24s ease-in-out infinite reverse;
+        }
+
+        .hero-text { position: relative; z-index: 1; max-width: 560px; }
+        .hero-label {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.3rem 0.8rem; border-radius: 50px;
+            background: rgba(115,0,10,0.06); border: 1px solid rgba(115,0,10,0.1);
+            font-size: 0.72rem; font-weight: 600; color: var(--garnet);
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.6rem, 5vw, 3.8rem);
+            font-weight: 800; line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: var(--darker);
+            margin-bottom: 1.2rem;
+        }
+        .hero h1 .color-cycle {
+            background: linear-gradient(90deg, var(--blue), var(--teal), var(--orange), var(--pink));
+            background-size: 300% 100%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%,100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        .hero-desc {
+            font-size: 1.05rem; color: #353840;
+            max-width: 460px; margin-bottom: 2rem; line-height: 1.8;
+        }
+        .hero-btns { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+        .btn {
+            padding: 0.7rem 1.5rem; border-radius: 8px;
+            font-family: inherit; font-size: 0.88rem; font-weight: 600;
+            border: none; cursor: pointer; transition: all 0.25s;
+            display: inline-flex; align-items: center; gap: 0.4rem;
+        }
+        .btn-primary {
+            background: var(--garnet); color: white;
+            box-shadow: 0 4px 16px rgba(115,0,10,0.15);
+        }
+        .btn-primary:hover { background: var(--garnet-bright); transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(115,0,10,0.2); }
+        .btn-outline {
+            background: transparent; color: var(--dark);
+            border: 1.5px solid var(--light-gray);
+        }
+        .btn-outline:hover { border-color: var(--garnet); color: var(--garnet); }
+
+        .hero-visual {
+            position: relative; z-index: 1;
+            display: flex; align-items: center; justify-content: center;
+            perspective: 1200px;
+            min-height: 540px;
+        }
+
+        /* ===== ROTATING CARD STACK ===== */
+        .card-stack {
+            position: relative;
+            width: 100%; max-width: 580px; height: 480px;
+        }
+        .stack-card {
+            position: absolute;
+            width: 540px;
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
+        }
+        .stack-card img {
+            width: 100%; height: 300px; object-fit: cover; display: block;
+        }
+        .stack-card .card-body {
+            padding: 1.2rem 1.4rem;
+            background: white;
+        }
+        .stack-card .card-tag {
+            display: inline-block;
+            padding: 0.15rem 0.5rem; border-radius: 4px;
+            font-size: 0.62rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 0.05em; margin-bottom: 0.4rem;
+        }
+        .stack-card .card-body h3 {
+            font-size: 0.95rem; font-weight: 700; color: var(--darker);
+            margin-bottom: 0.2rem;
+        }
+        .stack-card .card-body p {
+            font-size: 0.78rem; color: var(--gray); line-height: 1.5;
+        }
+
+        /* card positions: front, behind-right, behind-left, hidden */
+        .stack-card[data-pos="0"] {
+            z-index: 4; top: 0; left: 0;
+            transform: rotate(-1deg) scale(1);
+            opacity: 1;
+        }
+        .stack-card[data-pos="1"] {
+            z-index: 3; top: 12px; left: 28px;
+            transform: rotate(3deg) scale(0.95);
+            opacity: 0.7;
+        }
+        .stack-card[data-pos="2"] {
+            z-index: 2; top: 24px; left: -18px;
+            transform: rotate(-4deg) scale(0.9);
+            opacity: 0.45;
+        }
+        .stack-card[data-pos="3"] {
+            z-index: 1; top: 0; left: 10px;
+            transform: rotate(0deg) scale(0.85);
+            opacity: 0;
+        }
+
+        /* card tag colors */
+        .tag-blue { background: rgba(26,143,196,0.1); color: var(--blue); }
+        .tag-teal { background: rgba(24,181,160,0.1); color: var(--teal); }
+        .tag-orange { background: rgba(232,134,42,0.1); color: var(--orange); }
+        .tag-pink { background: rgba(214,74,123,0.1); color: var(--pink); }
+
+        /* progress dots */
+        .stack-dots {
+            display: flex; gap: 0.4rem;
+            position: absolute; bottom: -32px; left: 50%;
+            transform: translateX(-50%);
+        }
+        .stack-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--light-gray);
+            transition: all 0.3s; cursor: pointer;
+        }
+        .stack-dot.active {
+            background: var(--garnet);
+            width: 24px; border-radius: 4px;
+        }
+
+        /* ===== PARTNER LOGOS BAR ===== */
+        .partners-bar {
+            padding: 2.5rem 3rem;
+            text-align: center;
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.04);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .partners-bar .label {
+            font-size: 0.7rem; font-weight: 600; color: var(--gray);
+            text-transform: uppercase; letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+        .partner-logos {
+            display: flex; justify-content: center; align-items: center;
+            gap: 3rem; flex-wrap: wrap; opacity: 0.4;
+            font-size: 1.1rem; font-weight: 700; color: var(--dark);
+        }
+
+        /* ===== SECTIONS ===== */
+        section { padding: 6rem 3rem; }
+        .wrap { max-width: 1080px; margin: 0 auto; }
+        .sec-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem; font-weight: 600; color: var(--garnet);
+            text-transform: uppercase; letter-spacing: 0.18em;
+            margin-bottom: 0.5rem;
+        }
+        .sec-title {
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800; letter-spacing: -0.03em;
+            color: var(--darker);
+            margin-bottom: 0.6rem;
+        }
+        .sec-desc { color: var(--gray); max-width: 520px; font-size: 0.95rem; margin-bottom: 3rem; }
+
+        /* ===== WHAT WE DO (impact cards) ===== */
+        .impact-section { background: rgba(255,255,255,0.65); }
+        .impact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+        }
+        .impact-card {
+            background: var(--cream); border-radius: 14px; padding: 2rem;
+            border: 1px solid transparent;
+            transition: all 0.35s;
+            position: relative; overflow: hidden;
+        }
+        .impact-card:hover {
+            border-color: var(--garnet);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(115,0,10,0.06);
+        }
+        .impact-accent {
+            width: 40px; height: 4px; border-radius: 2px;
+            margin-bottom: 1.2rem;
+        }
+        .accent-blue { background: var(--blue); }
+        .accent-teal { background: var(--teal); }
+        .accent-orange { background: var(--orange); }
+        .accent-pink { background: var(--pink); }
+        .impact-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--darker); }
+        .impact-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; }
+
+        /* ===== STATS BAND ===== */
+        .stats-band {
+            background: var(--darker);
+            padding: 4rem 3rem;
+        }
+        .stats-row {
+            max-width: 1080px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+            text-align: center;
+        }
+        .stat-val {
+            font-size: 2.6rem; font-weight: 800; letter-spacing: -0.03em;
+        }
+        .stat-val.c1 { color: var(--blue); }
+        .stat-val.c2 { color: var(--teal); }
+        .stat-val.c3 { color: var(--orange); }
+        .stat-val.c4 { color: var(--pink); }
+        .stat-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; font-weight: 500; }
+
+        /* ===== ABOUT ===== */
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center;
+        }
+        .about-text p {
+            font-size: 0.92rem; color: var(--gray); line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .research-areas {
+            display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem;
+        }
+        .area-tag {
+            padding: 0.35rem 0.85rem; border-radius: 50px;
+            font-size: 0.75rem; font-weight: 600;
+            border: 1.5px solid;
+        }
+        .area-tag:nth-child(1) { color: var(--blue); border-color: rgba(26,143,196,0.25); background: rgba(26,143,196,0.05); }
+        .area-tag:nth-child(2) { color: var(--teal); border-color: rgba(24,181,160,0.25); background: rgba(24,181,160,0.05); }
+        .area-tag:nth-child(3) { color: var(--orange); border-color: rgba(232,134,42,0.25); background: rgba(232,134,42,0.05); }
+        .area-tag:nth-child(4) { color: var(--pink); border-color: rgba(214,74,123,0.25); background: rgba(214,74,123,0.05); }
+        .area-tag:nth-child(5) { color: var(--garnet); border-color: rgba(115,0,10,0.2); background: rgba(115,0,10,0.04); }
+        .area-tag:nth-child(6) { color: var(--blue); border-color: rgba(26,143,196,0.25); background: rgba(26,143,196,0.05); }
+
+        /* ===== ABOUT CAROUSEL ===== */
+        .about-carousel {
+            position: relative;
+            width: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+        .about-carousel img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        .about-carousel img.active { opacity: 1; }
+        .carousel-dots {
+            position: absolute; bottom: 12px; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 6px; z-index: 2;
+        }
+        .carousel-dots span {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: rgba(255,255,255,0.4); cursor: pointer;
+            transition: all 0.3s;
+        }
+        .carousel-dots span.active {
+            background: white; width: 22px; border-radius: 4px;
+        }
+
+        /* ===== PEOPLE ===== */
+        .people-section { background: rgba(255,255,255,0.65); }
+        .people-subsection { margin-bottom: 2.5rem; }
+        .people-subsection:last-child { margin-bottom: 0; }
+        .subsection-title {
+            font-size: 1.6rem; font-weight: 800; color: var(--darker);
+            margin-bottom: 1.4rem; padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--light-gray);
+            letter-spacing: -0.02em;
+        }
+        .people-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 1.2rem;
+            justify-items: center;
+        }
+        .people-grid.leadership-grid {
+            grid-template-columns: minmax(190px, 240px);
+        }
+        .person {
+            background: var(--cream); border-radius: 12px;
+            padding: 1.8rem 1.2rem; text-align: center;
+            border: 1px solid transparent; transition: all 0.3s;
+            width: 100%;
+            min-height: 200px;
+            display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+        }
+        .person:hover { border-color: var(--garnet); transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(115,0,10,0.06); }
+        .avatar {
+            width: 96px; height: 96px; border-radius: 50%;
+            background: var(--garnet); color: white;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 0.8rem; font-weight: 700; font-size: 0.82rem;
+            overflow: hidden;
+        }
+        .avatar img {
+            width: 100%; height: 100%; object-fit: cover;
+            object-position: center 20%;
+        }
+        .person h4 { font-size: 0.95rem; font-weight: 700; color: var(--darker); white-space: nowrap; }
+        .person .role { font-size: 0.76rem; color: var(--garnet); font-weight: 500; margin-top: 0.15rem; }
+
+
+
+
+
+        /* ===== SERVICES ===== */
+        .services-section { background: rgba(255,255,255,0.65); }
+        .services-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+        .service-card {
+            background: var(--cream); border-radius: 14px; padding: 1.8rem;
+            border: 1px solid transparent; transition: all 0.35s;
+            position: relative;
+        }
+        .service-card:hover {
+            border-color: var(--garnet); transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(115,0,10,0.06);
+        }
+        .service-img {
+            width: 100%; height: 160px; object-fit: cover;
+            border-radius: 10px; margin-bottom: 1rem;
+        }
+        .service-card h3 { font-size: 1rem; font-weight: 700; color: var(--darker); margin-bottom: 0.4rem; }
+        .service-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+        .service-card .includes {
+            margin-top: 0.8rem; padding-top: 0.8rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.75rem; color: var(--gray);
+        }
+        .service-card .includes span {
+            display: inline-block; margin-right: 0.4rem; margin-bottom: 0.3rem;
+            padding: 0.15rem 0.5rem; border-radius: 4px;
+            background: rgba(0,0,0,0.03); font-weight: 500;
+        }
+        .services-cta {
+            text-align: center; margin-top: 2.5rem;
+            padding: 1.5rem; background: var(--cream); border-radius: 12px;
+            border: 1px dashed var(--light-gray);
+        }
+        .services-cta p {
+            font-size: 0.92rem; color: var(--gray); margin-bottom: 0.8rem;
+        }
+        .services-cta strong { color: var(--darker); }
+
+        /* ===== CTA BAND ===== */
+        .cta-band {
+            background: var(--darker); padding: 5rem 3rem; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .cta-band::before {
+            content: ''; position: absolute; inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(26,143,196,0.1), transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(232,134,42,0.08), transparent 50%);
+            pointer-events: none;
+        }
+        .cta-band h2 {
+            font-size: clamp(1.6rem, 3vw, 2.4rem);
+            font-weight: 800; color: white; position: relative;
+            letter-spacing: -0.02em; margin-bottom: 0.6rem;
+        }
+        .cta-band p { color: rgba(255,255,255,0.5); font-size: 0.95rem; margin-bottom: 2rem; position: relative; }
+        .cta-band .btn-primary { position: relative; }
+
+        /* ===== CONTACT ===== */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .contact-left p { color: var(--gray); font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; }
+        .c-items { display: flex; flex-direction: column; gap: 1rem; }
+        .c-item { display: flex; gap: 0.7rem; align-items: flex-start; }
+        .c-icon {
+            width: 36px; height: 36px; border-radius: 8px;
+            background: rgba(115,0,10,0.05); color: var(--garnet);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.9rem; flex-shrink: 0;
+        }
+        .c-lbl { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+        .c-val { font-size: 0.88rem; font-weight: 500; color: var(--darker); }
+        .c-form {
+            background: white; border: 1px solid rgba(0,0,0,0.06);
+            border-radius: 14px; padding: 2rem;
+        }
+        .c-form h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--darker); }
+        .field { margin-bottom: 0.9rem; }
+        .field label { display: block; font-size: 0.72rem; color: var(--gray); margin-bottom: 0.25rem; font-weight: 600; }
+        .field input, .field textarea {
+            width: 100%; padding: 0.65rem 0.85rem; background: var(--cream);
+            border: 1px solid rgba(0,0,0,0.08); border-radius: 8px;
+            color: var(--dark); font-family: inherit; font-size: 0.85rem;
+            transition: border-color 0.2s;
+        }
+        .field input:focus, .field textarea:focus { outline: none; border-color: var(--garnet); }
+        .field textarea { resize: vertical; min-height: 80px; }
+        .submit-btn {
+            width: 100%; padding: 0.7rem; background: var(--garnet);
+            border: none; border-radius: 8px; color: white;
+            font-family: inherit; font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .submit-btn:hover { background: var(--garnet-bright); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2rem 3rem; background: var(--darkest);
+            display: flex; align-items: center; justify-content: space-between;
+            font-size: 0.72rem; color: rgba(255,255,255,0.3);
+        }
+        .f-links { display: flex; gap: 1.5rem; list-style: none; }
+        .f-links a { color: rgba(255,255,255,0.35); transition: color 0.2s; }
+        .f-links a:hover { color: white; }
+
+        /* ===== REVEAL ===== */
+        .rv { opacity: 0; transform: translateY(24px); transition: all 0.65s cubic-bezier(0.16,1,0.3,1); }
+        .rv.vis { opacity: 1; transform: none; }
+        .stg .rv:nth-child(1){transition-delay:0s} .stg .rv:nth-child(2){transition-delay:.08s}
+        .stg .rv:nth-child(3){transition-delay:.16s} .stg .rv:nth-child(4){transition-delay:.24s}
+        .stg .rv:nth-child(5){transition-delay:.32s} .stg .rv:nth-child(6){transition-delay:.4s}
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:900px) {
+            nav { padding: 0 1.5rem; }
+            .nav-links { display: none; }
+            .burger { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: 0; right: 0; background: rgba(255,255,255,0.97);
+                backdrop-filter: blur(20px); padding: 1rem; gap: 0.8rem;
+                border-bottom: 1px solid rgba(0,0,0,0.06);
+            }
+            section { padding: 4rem 1.5rem; }
+            .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+            .hero-text { max-width: 100%; }
+            .hero-btns { justify-content: center; }
+            .hero-desc { margin-left: auto; margin-right: auto; }
+            .stats-row, .about-grid, .contact-grid { grid-template-columns: 1fr 1fr; }
+            .about-grid { grid-template-columns: 1fr; }
+        }
+        @media(max-width:600px) {
+            .stats-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .hero-btns { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Ambient color blobs -->
+<div class="ambient-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="blob blob-4"></div>
+    <div class="blob blob-5"></div>
+    <div class="blob blob-6"></div>
+    <div class="blob blob-7"></div>
+    <div class="blob blob-8"></div>
+</div>
+
+<nav>
+    <a href="#" class="logo"><img src="aiisc-logo.png" alt="AI Institute - University of South Carolina"></a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#what">What We Do</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#people">People</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact" class="cta">Contact Us</a></li>
+    </ul>
+    <button class="burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-text">
+        <div class="hero-label rv">Molinaroli College of Engineering &bull; UofSC</div>
+        <h1 class="rv">Human Intelligence<br>Meets <span class="color-cycle">Artificial</span></h1>
+        <p class="hero-desc rv">We pair human expertise with cutting-edge AI to solve real problems &mdash; partnering with industry, healthcare, and government to deliver solutions that work.</p>
+        <div class="hero-btns rv">
+            <a href="#what" class="btn btn-primary">See What We Do &darr;</a>
+            <a href="#contact" class="btn btn-outline">Partner With Us</a>
+        </div>
+    </div>
+    <div class="hero-visual rv">
+        <div class="card-stack" id="cardStack">
+            <div class="stack-card" data-pos="0">
+                <img src="brain pic.jpg" alt="AI Research">
+                <div class="card-body">
+                    <span class="card-tag tag-blue">Research</span>
+                    <h3>Creative AI Solutions</h3>
+                    <p>Turning cutting-edge research into real-world impact.</p>
+                </div>
+            </div>
+            <div class="stack-card" data-pos="1">
+                <img src="card-nlp.jpg" alt="AI & Natural Language Processing">
+                <div class="card-body">
+                    <span class="card-tag tag-teal">NLP</span>
+                    <h3>Language Understanding</h3>
+                    <p>Knowledge graphs and neuro-symbolic reasoning at scale.</p>
+                </div>
+            </div>
+            <div class="stack-card" data-pos="2">
+                <img src="card-health.jpg" alt="AI-Powered Healthcare">
+                <div class="card-body">
+                    <span class="card-tag tag-orange">Healthcare</span>
+                    <h3>AI-Powered Health</h3>
+                    <p>Deployed solutions for clinical and public health challenges.</p>
+                </div>
+            </div>
+            <div class="stack-card" data-pos="3">
+                <img src="card-data.jpg" alt="Data Analytics Dashboard">
+                <div class="card-body">
+                    <span class="card-tag tag-pink">Data Analytics</span>
+                    <h3>Actionable Insights</h3>
+                    <p>From raw data to decisions with statistical modeling and ML.</p>
+                </div>
+            </div>
+            <div class="stack-dots">
+                <div class="stack-dot active" data-i="0"></div>
+                <div class="stack-dot" data-i="1"></div>
+                <div class="stack-dot" data-i="2"></div>
+                <div class="stack-dot" data-i="3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHAT WE DO -->
+<section class="impact-section" id="what">
+    <div class="wrap">
+        <div class="sec-label rv">What We Do</div>
+        <div class="sec-title rv">Your Challenge, Our Expertise</div>
+        <div class="sec-desc rv">We don't just publish papers. We build AI that goes into production, creates patents, and launches companies.</div>
+        <div class="impact-grid stg">
+            <div class="impact-card rv">
+                <div class="impact-accent accent-blue"></div>
+                <h3>Industry Research</h3>
+                <p>World-class foundational and interdisciplinary AI research that pushes boundaries and delivers results partners can use.</p>
+            </div>
+            <div class="impact-card rv">
+                <div class="impact-accent accent-teal"></div>
+                <h3>Patents &amp; Commercialization</h3>
+                <p>From SBIR/STTR projects to licensing deals, we turn research into products through active industry collaboration.</p>
+            </div>
+            <div class="impact-card rv">
+                <div class="impact-accent accent-orange"></div>
+                <h3>Health &amp; Social Impact</h3>
+                <p>AI-powered solutions tackling real health challenges and social issues &mdash; not hypothetical, deployed.</p>
+            </div>
+            <div class="impact-card rv">
+                <div class="impact-accent accent-pink"></div>
+                <h3>Workforce &amp; Education</h3>
+                <p>Training the next generation through certificates, degree programs, and hands-on industry partnerships in AI.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PARTNER BAR -->
+<div class="partners-bar">
+    <div class="label">Trusted by industry partners</div>
+    <div class="partner-logos">
+        <span>NVIDIA</span>
+        <span>USC Health</span>
+        <span>SC Commerce</span>
+        <span>NSF</span>
+        <span>NIH</span>
+    </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+    <div class="wrap">
+        <div class="sec-label rv">Services</div>
+        <div class="sec-title rv">What We Can Do For You</div>
+        <div class="sec-desc rv">From a one-hour consult to a full-year embedded partnership, we meet you where you are. Available to USC departments and external organizations.</div>
+        <div class="services-grid stg">
+            <div class="service-card rv">
+                <img src="valafar board.jpg" alt="AI Consulting" class="service-img">
+                <h3>AI Consulting</h3>
+                <p>Initial consultations to assess AI/ML feasibility for your research or operational needs, plus technical scoping with a written project plan.</p>
+                <div class="includes"><span>Initial Consultation</span><span>Technical Scoping</span><span>Feasibility Assessment</span></div>
+            </div>
+            <div class="service-card rv">
+                <img src="svc-grant.jpg" alt="Grant & Publication Support" class="service-img">
+                <h3>Grant &amp; Publication Support</h3>
+                <p>Letters of support, drafting or reviewing AI/ML methodology sections for grant proposals, and technical review of manuscripts for publication.</p>
+                <div class="includes"><span>Letters of Support</span><span>Grant Technical Sections</span><span>Manuscript Review</span></div>
+            </div>
+            <div class="service-card rv">
+                <img src="svc-workshop.jpg" alt="Workshops & Training" class="service-img">
+                <h3>Workshops &amp; Training</h3>
+                <p>AI literacy, ChatGPT applications, hands-on sessions, and intensive training &mdash; from 2-hour intros to multi-day programs. Custom content available.</p>
+                <div class="includes"><span>Intro Workshops</span><span>Half &amp; Full Day</span><span>Custom Workshops</span></div>
+            </div>
+            <div class="service-card rv">
+                <img src="svc-code.jpg" alt="Coding Bootcamps" class="service-img">
+                <h3>Coding Bootcamps</h3>
+                <p>Python and ML fundamentals, applied ML and deep learning, and comprehensive multi-day programs for teams ready to build.</p>
+                <div class="includes"><span>3-Hour Bootcamp</span><span>6-Hour Extended</span><span>12-Hour Multi-Day</span></div>
+            </div>
+            <div class="service-card rv">
+                <img src="svc-data.jpg" alt="Data Analytics" class="service-img">
+                <h3>Data Analytics</h3>
+                <p>Defined-deliverable engagements covering data cleaning, exploratory analysis, statistical modeling, and technical reporting &mdash; from 10-hour sprints to 100-hour enterprise projects.</p>
+                <div class="includes"><span>EDA &amp; Cleaning</span><span>Statistical Modeling</span><span>Technical Reporting</span></div>
+            </div>
+            <div class="service-card rv">
+                <img src="Valafar 2.jpg" alt="Research Collaboration" class="service-img">
+                <h3>Research Collaboration</h3>
+                <p>Embedded partnerships on funded research &mdash; from advisory roles to full-time dedicated AI scientists. Study design, model development, and publication support.</p>
+                <div class="includes"><span>Advisory (5 hrs/wk)</span><span>Part-Time</span><span>Half-Time</span><span>Full-Time</span></div>
+            </div>
+        </div>
+        <div class="services-cta rv">
+            <p><strong>Ongoing maintenance, project management, and full-year engagements also available. Every partnership is different &mdash; let's find the right fit.</strong></p>
+            <a href="#contact" class="btn btn-primary">Contact Us for Details</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+    <div class="wrap">
+        <div class="about-grid">
+            <div class="about-carousel rv" id="aboutCarousel">
+                <img src="carousel-1.jpg" alt="AI Robot" class="active">
+                <img src="carousel-2.jpg" alt="AI in Manufacturing">
+                <img src="carousel-3.jpg" alt="AI in Healthcare">
+                <img src="carousel-4.jpg" alt="Tech Collaboration">
+                <img src="carousel-5.jpg" alt="AI & Robotics">
+                <div class="carousel-dots">
+                    <span class="active" data-i="0"></span>
+                    <span data-i="1"></span>
+                    <span data-i="2"></span>
+                    <span data-i="3"></span>
+                    <span data-i="4"></span>
+                </div>
+            </div>
+            <div class="about-text">
+                <div class="sec-label rv">About AIISC</div>
+                <div class="sec-title rv">Where AI Meets Industry</div>
+                <p class="rv">The AI Institute of South Carolina brings together researchers, engineers, and industry partners to solve the problems that matter. We bridge the gap between what AI can do in a lab and what it needs to do in the real world.</p>
+                <p class="rv">Our work spans natural language processing, knowledge graphs, computer vision, health informatics, and neuro-symbolic AI &mdash; always with an eye toward practical deployment.</p>
+                <div class="research-areas stg">
+                    <span class="area-tag rv">Natural Language Processing</span>
+                    <span class="area-tag rv">Knowledge Graphs</span>
+                    <span class="area-tag rv">Neuro-Symbolic AI</span>
+                    <span class="area-tag rv">Explainable AI</span>
+                    <span class="area-tag rv">Health Informatics</span>
+                    <span class="area-tag rv">Computer Vision</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PEOPLE -->
+<section class="people-section" id="people">
+    <div class="wrap">
+        <div class="sec-label rv">People</div>
+        <div class="sec-title rv">The Team</div>
+        <div class="sec-desc rv">Researchers and faculty driving AI innovation at the University of South Carolina.</div>
+
+        <div class="people-subsection" style="text-align:center">
+            <div class="subsection-title rv" style="text-align:center;">Leadership</div>
+            <div class="people-grid leadership-grid stg" style="justify-content:center">
+                <div class="person rv"><div class="avatar"><img src="Valafar headshot.png" alt="Dr. Homayoun Valafar" style="object-position: center 35%"></div><h4>Dr. Homayoun Valafar</h4><div class="role">Director, AI Institute &bull; Chair &amp; Professor, CSE</div></div>
+            </div>
+        </div>
+
+        <div class="people-subsection">
+            <div class="subsection-title rv" style="text-align:center;">Core Faculty</div>
+            <div class="people-grid stg">
+                <div class="person rv"><div class="avatar"><img src="head-agostinelli.jpg" alt="Dr. Forest Agostinelli"></div><h4>Dr. Forest Agostinelli</h4><div class="role">Assistant Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="head-hu.jpg" alt="Dr. Jianjun Hu"></div><h4>Dr. Jianjun Hu</h4><div class="role">Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="head-narayanan.jpg" alt="Dr. Vignesh Narayanan"></div><h4>Dr. Vignesh Narayanan</h4><div class="role">Assistant Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="head-oreilly.jpg" alt="Dr. Christian O'Reilly"></div><h4>Dr. Christian O'Reilly</h4><div class="role">Assistant Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="head-sheth.jpg" alt="Dr. Amit Sheth"></div><h4>Dr. Amit Sheth</h4><div class="role">Founding Director &bull; NCR Chair &amp; Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="head-srivastava.jpg" alt="Dr. Biplav Srivastava"></div><h4>Dr. Biplav Srivastava</h4><div class="role">Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="head-sur.jpg" alt="Dr. Sanjib Sur"></div><h4>Dr. Sanjib Sur</h4><div class="role">Associate Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="tong.png" alt="Dr. Yan Tong"></div><h4>Dr. Yan Tong</h4><div class="role">Professor, CSE</div></div>
+                <div class="person rv"><div class="avatar"><img src="head-zand.png" alt="Dr. Ramtin Zand"></div><h4>Dr. Ramtin Zand</h4><div class="role">Assistant Professor, CSE</div></div>
+            </div>
+        </div>
+
+        <div class="people-subsection">
+            <div class="subsection-title rv" style="text-align:center;">Staff Scientists</div>
+            <div class="people-grid stg" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem">
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Kuba.png" alt="Kuba Jerzmanowski"></div><h4>Kuba Jerzmanowski</h4><div class="role">AI/ML Engineer I</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Chris Lee.png" alt="Christopher Lee"></div><h4>Christopher Lee</h4><div class="role">AI/ML Engineer II</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Andrew Smith.jpg" alt="Andrew Smith"></div><h4>Andrew Smith</h4><div class="role">AI/ML Engineer II</div></div>
+            </div>
+        </div>
+
+        <div class="people-subsection">
+            <div class="subsection-title rv" style="text-align:center;">Advisory Board</div>
+            <div class="people-grid stg">
+                <div class="person rv"><div class="avatar"><img src="adv-bonilha.png" alt="Dr. Leonardo Bonilha"></div><h4>Dr. Leonardo Bonilha</h4><div class="role">Sr. Assoc. Dean for Research, School of Medicine</div></div>
+                <div class="person rv"><div class="avatar"><img src="adv-fridriksson.jpg" alt="Dr. Julius Fridriksson"></div><h4>Dr. Julius Fridriksson</h4><div class="role">Professor &amp; VP for Research, Arnold School of Public Health</div></div>
+                <div class="person rv"><div class="avatar"><img src="adv-hajhariri.jpg" alt="Dr. Hossein Haj-Hariri"></div><h4>Dr. Hossein Haj-Hariri</h4><div class="role">Dean, Molinaroli College of Engineering &amp; Computing</div></div>
+                <div class="person rv"><div class="avatar"><img src="adv-huhns.jpg" alt="Dr. Michael Huhns"></div><h4>Dr. Michael Huhns</h4><div class="role">NCR Distinguished Professor Emeritus, CSE</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- CTA -->
+<div class="cta-band">
+    <h2 class="rv">Ready to build something with AI?</h2>
+    <p class="rv">We partner with companies, agencies, and organizations to solve hard problems.</p>
+    <a href="#contact" class="btn btn-primary rv">Let's Talk</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+    <div class="wrap">
+        <div class="contact-grid">
+            <div class="contact-left">
+                <div class="sec-label rv">Contact</div>
+                <div class="sec-title rv">Reach Out</div>
+                <p class="rv">Whether you want to collaborate on research, explore a partnership, or just learn more &mdash; we're here.</p>
+                <div class="c-items">
+                    <div class="c-item rv"><div class="c-icon">&#x1F4CD;</div><div><div class="c-lbl">Address</div><div class="c-val">1112 Greene St., Room 513<br>Columbia, SC 29208</div></div></div>
+                    <div class="c-item rv"><div class="c-icon">&#x1F4DE;</div><div><div class="c-lbl">Phone</div><div class="c-val">+1 (803) 777-7979</div></div></div>
+                    <div class="c-item rv"><div class="c-icon">&#x2709;&#xFE0F;</div><div><div class="c-lbl">Email</div><div class="c-val">aiisc@mailbox.sc.edu</div></div></div>
+                </div>
+            </div>
+            <div class="c-form rv">
+                <h3>Send a Message</h3>
+                <form id="cForm">
+                    <div class="field"><label>Name</label><input type="text" placeholder="Your name"></div>
+                    <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+                    <div class="field"><label>Message</label><textarea placeholder="Tell us about your project or question"></textarea></div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <span>&copy; 2026 AI Institute of South Carolina &bull; University of South Carolina</span>
+    <ul class="f-links">
+        <li><a href="#what">What We Do</a></li>
+        <li><a href="#people">People</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</footer>
+
+<script>
+// nav
+const nv = document.querySelector('nav');
+addEventListener('scroll', () => nv.classList.toggle('scrolled', scrollY > 40));
+document.getElementById('burger').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+
+// reveal
+const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }), {threshold:.08, rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.rv').forEach(e => io.observe(e));
+
+// counters
+const co = new IntersectionObserver(es => es.forEach(e => {
+    if(!e.isIntersecting) return;
+    const el=e.target, t=+el.dataset.c, s=el.dataset.s||'';
+    let c=0; const step=Math.max(1,Math.floor(t/30));
+    const iv=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(iv)}el.textContent=c+s},28);
+    co.unobserve(el);
+}),{threshold:.5});
+document.querySelectorAll('.stat-val').forEach(e => co.observe(e));
+
+// smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault(); const t=document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+}));
+
+// rotating card stack
+(function(){
+    const cards = document.querySelectorAll('.stack-card');
+    const dots = document.querySelectorAll('.stack-dot');
+    const total = cards.length;
+    let current = 0;
+    let interval;
+
+    function setPositions() {
+        cards.forEach((card, i) => {
+            const pos = (i - current + total) % total;
+            card.setAttribute('data-pos', pos);
+        });
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function next() {
+        current = (current + 1) % total;
+        setPositions();
+    }
+
+    function goTo(i) {
+        current = i;
+        setPositions();
+        resetInterval();
+    }
+
+    function resetInterval() {
+        clearInterval(interval);
+        interval = setInterval(next, 3500);
+    }
+
+    // click card to cycle
+    cards.forEach(c => c.addEventListener('click', () => { next(); resetInterval(); }));
+    // click dots
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+
+    resetInterval();
+})();
+
+// about carousel
+(function(){
+    const wrap = document.getElementById('aboutCarousel');
+    const imgs = wrap.querySelectorAll('img');
+    const dots = wrap.querySelectorAll('.carousel-dots span');
+    let cur = 0, timer;
+
+    function show(i) {
+        imgs.forEach(img => img.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        imgs[i].classList.add('active');
+        dots[i].classList.add('active');
+        cur = i;
+    }
+
+    function next() { show((cur + 1) % imgs.length); }
+
+    function startTimer() { clearInterval(timer); timer = setInterval(next, 4000); }
+
+    dots.forEach(d => d.addEventListener('click', () => { show(+d.dataset.i); startTimer(); }));
+    wrap.addEventListener('click', (e) => { if (!e.target.matches('.carousel-dots span')) { next(); startTimer(); } });
+
+    startTimer();
+})();
+
+// form
+document.getElementById('cForm').addEventListener('submit', e => {
+    e.preventDefault(); const b=e.target.querySelector('.submit-btn');
+    b.textContent='Sent!'; b.style.background='#1a8fc4';
+    setTimeout(()=>{b.textContent='Send Message';b.style.background='';e.target.reset()},2500);
+});
+</script>
+</body>
+</html>
