@@ -627,6 +627,14 @@
             .stats-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
             .hero-btns { flex-direction: column; align-items: center; }
         }
+
+        /* Disable heavy animations on mobile to prevent flickering */
+        @media(max-width:900px) {
+            .ambient-blobs { display: none; }
+            .hero-bg { animation: none; }
+            .hero-glow { display: none; }
+            #twinkleCanvas { display: none; }
+        }
     </style>
 </head>
 <body>
