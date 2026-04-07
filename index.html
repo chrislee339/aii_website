@@ -17,20 +17,23 @@
             --orange: #e8862a;
             --pink: #d64a7b;
             --yellow: #e8c840;
-            --dark: #1c2030;
-            --darker: #141822;
-            --darkest: #0f1218;
+            --dark: #0b0e18;
+            --darker: #080a12;
+            --darkest: #05070d;
+            --card-bg: #111525;
+            --card-border: rgba(255,255,255,0.06);
             --white: #ffffff;
-            --cream: #f0ebe0;
+            --text: #e0e4ef;
+            --text-muted: #8891a8;
             --gray: #6b7280;
-            --light-gray: #e2ddd4;
+            --light-gray: rgba(255,255,255,0.1);
         }
 
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Sora', sans-serif;
-            background: var(--cream);
-            color: var(--dark);
+            background: var(--dark);
+            color: var(--text);
             overflow-x: hidden;
             line-height: 1.7;
         }
@@ -43,17 +46,17 @@
         }
         .blob {
             position: absolute; border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(120px);
             animation: blobDrift 25s ease-in-out infinite;
         }
-        .blob-1 { width: 700px; height: 700px; background: rgba(26,143,196,0.13); top: -10%; left: -5%; }
-        .blob-2 { width: 600px; height: 600px; background: rgba(232,134,42,0.11); top: 20%; right: -8%; animation-delay: -5s; animation-duration: 30s; }
-        .blob-3 { width: 650px; height: 650px; background: rgba(214,74,123,0.09); top: 45%; left: 10%; animation-delay: -10s; animation-duration: 28s; }
-        .blob-4 { width: 550px; height: 550px; background: rgba(24,181,160,0.11); top: 65%; right: 5%; animation-delay: -15s; animation-duration: 32s; }
-        .blob-5 { width: 600px; height: 600px; background: rgba(115,0,10,0.07); top: 85%; left: -5%; animation-delay: -20s; animation-duration: 26s; }
-        .blob-6 { width: 500px; height: 500px; background: rgba(232,200,64,0.09); top: 35%; left: 50%; animation-delay: -8s; animation-duration: 35s; }
-        .blob-7 { width: 550px; height: 550px; background: rgba(26,143,196,0.08); top: 55%; left: 30%; animation-delay: -12s; animation-duration: 33s; }
-        .blob-8 { width: 480px; height: 480px; background: rgba(214,74,123,0.07); top: 10%; right: 25%; animation-delay: -18s; animation-duration: 27s; }
+        .blob-1 { width: 700px; height: 700px; background: rgba(26,143,196,0.08); top: -10%; left: -5%; }
+        .blob-2 { width: 600px; height: 600px; background: rgba(232,134,42,0.06); top: 20%; right: -8%; animation-delay: -5s; animation-duration: 30s; }
+        .blob-3 { width: 650px; height: 650px; background: rgba(214,74,123,0.05); top: 45%; left: 10%; animation-delay: -10s; animation-duration: 28s; }
+        .blob-4 { width: 550px; height: 550px; background: rgba(24,181,160,0.06); top: 65%; right: 5%; animation-delay: -15s; animation-duration: 32s; }
+        .blob-5 { width: 600px; height: 600px; background: rgba(115,0,10,0.04); top: 85%; left: -5%; animation-delay: -20s; animation-duration: 26s; }
+        .blob-6 { width: 500px; height: 500px; background: rgba(232,200,64,0.04); top: 35%; left: 50%; animation-delay: -8s; animation-duration: 35s; }
+        .blob-7 { width: 550px; height: 550px; background: rgba(26,143,196,0.05); top: 55%; left: 30%; animation-delay: -12s; animation-duration: 33s; }
+        .blob-8 { width: 480px; height: 480px; background: rgba(214,74,123,0.04); top: 10%; right: 25%; animation-delay: -18s; animation-duration: 27s; }
 
         @keyframes blobDrift {
             0%, 100% { transform: translate(0, 0) scale(1); }
@@ -70,88 +73,170 @@
         /* ===== NAV ===== */
         nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-            height: 76px; display: flex; align-items: center; justify-content: space-between;
-            padding: 0 3rem;
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(20px) saturate(1.4);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            transition: box-shadow 0.3s;
+            height: 72px; display: flex; align-items: center; justify-content: space-between;
+            padding: 0 4rem;
+            background: rgba(5,7,13,0.92);
+            backdrop-filter: blur(24px) saturate(1.4);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: box-shadow 0.3s, background 0.3s;
         }
-        nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.06); }
+        nav.scrolled { box-shadow: 0 1px 20px rgba(0,0,0,0.4); background: rgba(5,7,13,0.97); }
         .logo {
-            display: flex; align-items: center;
+            display: flex; align-items: center; margin-right: 3rem; flex-shrink: 0;
         }
         .logo img {
-            height: 64px; width: auto;
+            height: 80px; width: auto;
         }
-        .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
-        .nav-links a { font-size: 0.82rem; font-weight: 500; color: var(--gray); transition: color 0.2s; }
-        .nav-links a:hover { color: var(--garnet); }
-        .nav-links .cta {
-            padding: 0.4rem 1rem; background: var(--garnet); color: white !important;
-            border-radius: 6px; font-weight: 600; font-size: 0.8rem;
-            transition: background 0.2s;
+        .nav-links {
+            display: flex; gap: 1.5rem; list-style: none; align-items: center;
+            position: absolute; left: 50%; transform: translateX(-50%);
         }
-        .nav-links .cta:hover { background: var(--garnet-bright); }
-        .burger { display: none; background: none; border: none; cursor: pointer; }
-        .burger span { display: block; width: 20px; height: 2px; background: var(--dark); margin: 4px 0; }
+        .nav-links li a {
+            font-size: 1.05rem; font-weight: 400; color: rgba(255,255,255,0.6);
+            transition: color 0.2s, background 0.2s;
+            padding: 0.5rem 1.1rem; border-radius: 6px;
+            letter-spacing: 0.01em;
+        }
+        .nav-links li a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+        .nav-links li { position: relative; }
+        .nav-dropdown {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+            background: rgba(15,18,30,0.97);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            min-width: 200px;
+            opacity: 0; visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
+            transform: translateX(-50%) translateY(8px);
+            list-style: none;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            margin-top: 0.3rem;
+        }
+        .nav-links li:hover .nav-dropdown {
+            opacity: 1; visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .nav-dropdown li a {
+            display: block; padding: 0.5rem 1.2rem;
+            font-size: 0.88rem !important; font-weight: 400;
+            color: rgba(255,255,255,0.55) !important;
+            transition: color 0.2s, background 0.2s;
+            border-radius: 0 !important;
+            white-space: nowrap;
+        }
+        .nav-dropdown li a:hover {
+            color: var(--white) !important;
+            background: rgba(255,255,255,0.06) !important;
+        }
+        .nav-actions {
+            display: flex; align-items: center; gap: 0.5rem; margin-left: auto; flex-shrink: 0;
+        }
+        .nav-actions .nav-login {
+            font-size: 0.84rem; font-weight: 400; color: rgba(255,255,255,0.6);
+            padding: 0.45rem 1rem; border-radius: 6px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .nav-actions .nav-login:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+        .nav-actions .cta {
+            padding: 0.5rem 1.3rem; background: var(--white); color: var(--dark) !important;
+            border-radius: 8px; font-weight: 600; font-size: 0.82rem;
+            transition: all 0.2s; letter-spacing: 0.01em;
+        }
+        .nav-actions .cta:hover { background: rgba(255,255,255,0.88); transform: translateY(-1px); }
+        .burger { display: none; background: none; border: none; cursor: pointer; margin-left: auto; }
+        .burger span { display: block; width: 20px; height: 2px; background: var(--white); margin: 4px 0; transition: all 0.3s; }
 
         /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
-            display: grid; grid-template-columns: 1fr 1fr;
+            display: flex;
             align-items: center;
-            padding: 5rem 4rem 4rem;
-            gap: 3rem;
-            background: linear-gradient(135deg, #f0ebe0 0%, #ece5d8 40%, #e6dfd2 100%);
+            padding: 7rem 4rem 4rem;
             position: relative;
             overflow: hidden;
         }
-        /* colorful accent blobs behind hero */
-        .hero::before {
-            content: ''; position: absolute;
-            width: 650px; height: 650px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(26,143,196,0.12), rgba(24,181,160,0.05), transparent 70%);
-            top: -150px; right: 5%; pointer-events: none;
-            animation: blobDrift 20s ease-in-out infinite;
+        /* brain background image */
+        .hero-bg {
+            position: absolute; inset: 0; z-index: 0;
+            background: url('hero-brain.png') center center / cover no-repeat;
+            animation: heroZoom 25s ease-in-out infinite alternate;
+            image-rendering: -webkit-optimize-contrast;
+            filter: contrast(1.1) saturate(1.15);
+            transform: translateZ(0); backface-visibility: hidden;
         }
-        .hero::after {
-            content: ''; position: absolute;
-            width: 550px; height: 550px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(232,134,42,0.1), rgba(214,74,123,0.04), transparent 70%);
-            bottom: -80px; left: 0%; pointer-events: none;
-            animation: blobDrift 24s ease-in-out infinite reverse;
+        .hero-bg::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, rgba(5,7,13,0.88) 0%, rgba(5,7,13,0.65) 45%, rgba(5,7,13,0.3) 100%);
+        }
+        @keyframes heroZoom {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+        /* animated glow pulses */
+        .hero-glow {
+            position: absolute; border-radius: 50%; pointer-events: none; z-index: 1;
+            filter: blur(80px);
+            transform: translateZ(0); backface-visibility: hidden;
+        }
+        .hero-glow-1 {
+            width: 500px; height: 500px;
+            background: rgba(26,143,196,0.15);
+            top: 10%; right: 20%;
+            animation: glowPulse 4s ease-in-out infinite alternate;
+        }
+        .hero-glow-2 {
+            width: 400px; height: 400px;
+            background: rgba(24,181,160,0.1);
+            bottom: 10%; right: 35%;
+            animation: glowPulse 5s ease-in-out infinite alternate-reverse;
+        }
+        .hero-glow-3 {
+            width: 350px; height: 350px;
+            background: rgba(232,134,42,0.08);
+            top: 30%; left: 40%;
+            animation: glowPulse 6s ease-in-out infinite alternate;
+        }
+        @keyframes glowPulse {
+            0% { opacity: 0.5; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.15); }
+        }
+        /* neuron twinkle canvas */
+        .hero-twinkle {
+            position: absolute; inset: 0; z-index: 1; pointer-events: none;
+            transform: translateZ(0); will-change: contents;
         }
 
-        .hero-text { position: relative; z-index: 1; max-width: 560px; }
+        .hero-text { position: relative; z-index: 2; max-width: 620px; transform: translateZ(0); will-change: transform; backface-visibility: hidden; }
         .hero-label {
             display: inline-flex; align-items: center; gap: 0.4rem;
-            padding: 0.3rem 0.8rem; border-radius: 50px;
-            background: rgba(115,0,10,0.06); border: 1px solid rgba(115,0,10,0.1);
-            font-size: 0.72rem; font-weight: 600; color: var(--garnet);
+            padding: 0.45rem 1.1rem; border-radius: 50px;
+            background: rgba(26,143,196,0.12); border: 1px solid rgba(26,143,196,0.2);
+            font-size: 0.88rem; font-weight: 600; color: var(--blue);
             margin-bottom: 1.5rem;
         }
         .hero h1 {
-            font-size: clamp(2.6rem, 5vw, 3.8rem);
-            font-weight: 800; line-height: 1.1;
+            font-size: clamp(2.8rem, 5vw, 4rem);
+            font-weight: 800; line-height: 1.08;
             letter-spacing: -0.03em;
-            color: var(--darker);
+            color: var(--white);
             margin-bottom: 1.2rem;
         }
         .hero h1 .color-cycle {
-            background: linear-gradient(90deg, var(--blue), var(--teal), var(--orange), var(--pink));
+            background: linear-gradient(90deg, var(--blue), var(--teal), var(--garnet-bright), var(--blue));
             background-size: 300% 100%;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradientShift 6s ease infinite;
+            animation: gradientShift 12s ease infinite;
         }
         @keyframes gradientShift {
             0%,100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
         .hero-desc {
-            font-size: 1.05rem; color: #353840;
-            max-width: 460px; margin-bottom: 2rem; line-height: 1.8;
+            font-size: 1.05rem; color: rgba(224,228,239,0.7);
+            max-width: 480px; margin-bottom: 2rem; line-height: 1.8;
         }
         .hero-btns { display: flex; gap: 0.7rem; flex-wrap: wrap; }
         .btn {
@@ -161,120 +246,38 @@
             display: inline-flex; align-items: center; gap: 0.4rem;
         }
         .btn-primary {
-            background: var(--garnet); color: white;
-            box-shadow: 0 4px 16px rgba(115,0,10,0.15);
+            background: var(--blue); color: white;
+            box-shadow: 0 4px 20px rgba(26,143,196,0.25);
         }
-        .btn-primary:hover { background: var(--garnet-bright); transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(115,0,10,0.2); }
+        .btn-primary:hover { background: #2199d0; transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(26,143,196,0.35); }
         .btn-outline {
-            background: transparent; color: var(--dark);
-            border: 1.5px solid var(--light-gray);
+            background: transparent; color: var(--text);
+            border: 1.5px solid rgba(255,255,255,0.15);
         }
-        .btn-outline:hover { border-color: var(--garnet); color: var(--garnet); }
+        .btn-outline:hover { border-color: var(--blue); color: var(--blue); }
 
         .hero-visual {
-            position: relative; z-index: 1;
-            display: flex; align-items: center; justify-content: center;
-            perspective: 1200px;
-            min-height: 540px;
-        }
-
-        /* ===== ROTATING CARD STACK ===== */
-        .card-stack {
-            position: relative;
-            width: 100%; max-width: 580px; height: 480px;
-        }
-        .stack-card {
-            position: absolute;
-            width: 540px;
-            border-radius: 18px;
-            overflow: hidden;
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.12);
-        }
-        .stack-card img {
-            width: 100%; height: 300px; object-fit: cover; display: block;
-        }
-        .stack-card .card-body {
-            padding: 1.2rem 1.4rem;
-            background: white;
-        }
-        .stack-card .card-tag {
-            display: inline-block;
-            padding: 0.15rem 0.5rem; border-radius: 4px;
-            font-size: 0.62rem; font-weight: 600; text-transform: uppercase;
-            letter-spacing: 0.05em; margin-bottom: 0.4rem;
-        }
-        .stack-card .card-body h3 {
-            font-size: 0.95rem; font-weight: 700; color: var(--darker);
-            margin-bottom: 0.2rem;
-        }
-        .stack-card .card-body p {
-            font-size: 0.78rem; color: var(--gray); line-height: 1.5;
-        }
-
-        /* card positions: front, behind-right, behind-left, hidden */
-        .stack-card[data-pos="0"] {
-            z-index: 4; top: 0; left: 0;
-            transform: rotate(-1deg) scale(1);
-            opacity: 1;
-        }
-        .stack-card[data-pos="1"] {
-            z-index: 3; top: 12px; left: 28px;
-            transform: rotate(3deg) scale(0.95);
-            opacity: 0.7;
-        }
-        .stack-card[data-pos="2"] {
-            z-index: 2; top: 24px; left: -18px;
-            transform: rotate(-4deg) scale(0.9);
-            opacity: 0.45;
-        }
-        .stack-card[data-pos="3"] {
-            z-index: 1; top: 0; left: 10px;
-            transform: rotate(0deg) scale(0.85);
-            opacity: 0;
-        }
-
-        /* card tag colors */
-        .tag-blue { background: rgba(26,143,196,0.1); color: var(--blue); }
-        .tag-teal { background: rgba(24,181,160,0.1); color: var(--teal); }
-        .tag-orange { background: rgba(232,134,42,0.1); color: var(--orange); }
-        .tag-pink { background: rgba(214,74,123,0.1); color: var(--pink); }
-
-        /* progress dots */
-        .stack-dots {
-            display: flex; gap: 0.4rem;
-            position: absolute; bottom: -32px; left: 50%;
-            transform: translateX(-50%);
-        }
-        .stack-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: var(--light-gray);
-            transition: all 0.3s; cursor: pointer;
-        }
-        .stack-dot.active {
-            background: var(--garnet);
-            width: 24px; border-radius: 4px;
+            display: none;
         }
 
         /* ===== PARTNER LOGOS BAR ===== */
         .partners-bar {
             padding: 2.5rem 3rem;
             text-align: center;
-            background: white;
-            border-top: 1px solid rgba(0,0,0,0.04);
-            border-bottom: 1px solid rgba(0,0,0,0.04);
+            background: var(--darker);
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
         .partners-bar .label {
-            font-size: 0.7rem; font-weight: 600; color: var(--gray);
+            font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
             text-transform: uppercase; letter-spacing: 0.15em;
             margin-bottom: 1rem;
         }
         .partner-logos {
             display: flex; justify-content: center; align-items: center;
-            gap: 3rem; flex-wrap: wrap; opacity: 0.4;
-            font-size: 1.1rem; font-weight: 700; color: var(--dark);
+            gap: 3rem; flex-wrap: wrap; opacity: 0.35;
+            font-size: 1.1rem; font-weight: 700; color: var(--text);
         }
 
         /* ===== SECTIONS ===== */
@@ -282,34 +285,34 @@
         .wrap { max-width: 1080px; margin: 0 auto; }
         .sec-label {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem; font-weight: 600; color: var(--garnet);
+            font-size: 1rem; font-weight: 600; color: var(--blue);
             text-transform: uppercase; letter-spacing: 0.18em;
             margin-bottom: 0.5rem;
         }
         .sec-title {
             font-size: clamp(1.8rem, 3.5vw, 2.6rem);
             font-weight: 800; letter-spacing: -0.03em;
-            color: var(--darker);
+            color: var(--white);
             margin-bottom: 0.6rem;
         }
-        .sec-desc { color: var(--gray); max-width: 520px; font-size: 0.95rem; margin-bottom: 3rem; }
+        .sec-desc { color: var(--text-muted); max-width: 520px; font-size: 0.95rem; margin-bottom: 3rem; }
 
         /* ===== WHAT WE DO (impact cards) ===== */
-        .impact-section { background: rgba(255,255,255,0.65); }
+        .impact-section { background: rgba(255,255,255,0.02); }
         .impact-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.2rem;
         }
         .impact-card {
-            background: var(--cream); border-radius: 14px; padding: 2rem;
-            border: 1px solid transparent;
+            background: var(--card-bg); border-radius: 14px; padding: 2rem;
+            border: 1px solid var(--card-border);
             transition: all 0.35s;
             position: relative; overflow: hidden;
         }
         .impact-card:hover {
-            border-color: var(--garnet);
+            border-color: var(--blue);
             transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(115,0,10,0.06);
+            box-shadow: 0 12px 40px rgba(26,143,196,0.1);
         }
         .impact-accent {
             width: 40px; height: 4px; border-radius: 2px;
@@ -319,13 +322,15 @@
         .accent-teal { background: var(--teal); }
         .accent-orange { background: var(--orange); }
         .accent-pink { background: var(--pink); }
-        .impact-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--darker); }
-        .impact-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; }
+        .impact-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); }
+        .impact-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.7; }
 
         /* ===== STATS BAND ===== */
         .stats-band {
             background: var(--darker);
             padding: 4rem 3rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
         .stats-row {
             max-width: 1080px; margin: 0 auto;
@@ -339,7 +344,7 @@
         .stat-val.c2 { color: var(--teal); }
         .stat-val.c3 { color: var(--orange); }
         .stat-val.c4 { color: var(--pink); }
-        .stat-lbl { font-size: 0.78rem; color: rgba(255,255,255,0.45); margin-top: 0.2rem; font-weight: 500; }
+        .stat-lbl { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.2rem; font-weight: 500; }
 
         /* ===== ABOUT ===== */
         .about-grid {
@@ -347,7 +352,7 @@
             gap: 4rem; align-items: center;
         }
         .about-text p {
-            font-size: 0.92rem; color: var(--gray); line-height: 1.8;
+            font-size: 0.92rem; color: var(--text-muted); line-height: 1.8;
             margin-bottom: 1rem;
         }
         .research-areas {
@@ -358,12 +363,12 @@
             font-size: 0.75rem; font-weight: 600;
             border: 1.5px solid;
         }
-        .area-tag:nth-child(1) { color: var(--blue); border-color: rgba(26,143,196,0.25); background: rgba(26,143,196,0.05); }
-        .area-tag:nth-child(2) { color: var(--teal); border-color: rgba(24,181,160,0.25); background: rgba(24,181,160,0.05); }
-        .area-tag:nth-child(3) { color: var(--orange); border-color: rgba(232,134,42,0.25); background: rgba(232,134,42,0.05); }
-        .area-tag:nth-child(4) { color: var(--pink); border-color: rgba(214,74,123,0.25); background: rgba(214,74,123,0.05); }
-        .area-tag:nth-child(5) { color: var(--garnet); border-color: rgba(115,0,10,0.2); background: rgba(115,0,10,0.04); }
-        .area-tag:nth-child(6) { color: var(--blue); border-color: rgba(26,143,196,0.25); background: rgba(26,143,196,0.05); }
+        .area-tag:nth-child(1) { color: var(--blue); border-color: rgba(26,143,196,0.3); background: rgba(26,143,196,0.08); }
+        .area-tag:nth-child(2) { color: var(--teal); border-color: rgba(24,181,160,0.3); background: rgba(24,181,160,0.08); }
+        .area-tag:nth-child(3) { color: var(--orange); border-color: rgba(232,134,42,0.3); background: rgba(232,134,42,0.08); }
+        .area-tag:nth-child(4) { color: var(--pink); border-color: rgba(214,74,123,0.3); background: rgba(214,74,123,0.08); }
+        .area-tag:nth-child(5) { color: var(--garnet-bright); border-color: rgba(160,21,37,0.3); background: rgba(160,21,37,0.08); }
+        .area-tag:nth-child(6) { color: var(--blue); border-color: rgba(26,143,196,0.3); background: rgba(26,143,196,0.08); }
 
         /* ===== ABOUT CAROUSEL ===== */
         .about-carousel {
@@ -372,7 +377,7 @@
             border-radius: 16px;
             overflow: hidden;
             aspect-ratio: 4/3;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
         }
         .about-carousel img {
             position: absolute; inset: 0;
@@ -388,21 +393,21 @@
         }
         .carousel-dots span {
             width: 8px; height: 8px; border-radius: 50%;
-            background: rgba(255,255,255,0.4); cursor: pointer;
+            background: rgba(255,255,255,0.3); cursor: pointer;
             transition: all 0.3s;
         }
         .carousel-dots span.active {
-            background: white; width: 22px; border-radius: 4px;
+            background: var(--blue); width: 22px; border-radius: 4px;
         }
 
         /* ===== PEOPLE ===== */
-        .people-section { background: rgba(255,255,255,0.65); }
-        .people-subsection { margin-bottom: 2.5rem; }
+        .people-section { background: rgba(255,255,255,0.02); }
+        .people-subsection { margin-bottom: 2.5rem; scroll-margin-top: 90px; }
         .people-subsection:last-child { margin-bottom: 0; }
         .subsection-title {
-            font-size: 1.6rem; font-weight: 800; color: var(--darker);
+            font-size: 1.6rem; font-weight: 800; color: var(--white);
             margin-bottom: 1.4rem; padding-bottom: 0.6rem;
-            border-bottom: 2px solid var(--light-gray);
+            border-bottom: 2px solid rgba(255,255,255,0.08);
             letter-spacing: -0.02em;
         }
         .people-grid {
@@ -414,18 +419,18 @@
             grid-template-columns: minmax(190px, 240px);
         }
         .person {
-            background: var(--cream); border-radius: 12px;
+            background: var(--card-bg); border-radius: 12px;
             padding: 1.8rem 1.2rem; text-align: center;
-            border: 1px solid transparent; transition: all 0.3s;
+            border: 1px solid var(--card-border); transition: all 0.3s;
             width: 100%;
             min-height: 200px;
             display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
         }
-        .person:hover { border-color: var(--garnet); transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(115,0,10,0.06); }
+        .person:hover { border-color: var(--blue); transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,143,196,0.1); }
         .avatar {
             width: 96px; height: 96px; border-radius: 50%;
-            background: var(--garnet); color: white;
+            background: var(--blue); color: white;
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 0.8rem; font-weight: 700; font-size: 0.82rem;
             overflow: hidden;
@@ -434,58 +439,94 @@
             width: 100%; height: 100%; object-fit: cover;
             object-position: center 20%;
         }
-        .person h4 { font-size: 0.95rem; font-weight: 700; color: var(--darker); white-space: nowrap; }
-        .person .role { font-size: 0.76rem; color: var(--garnet); font-weight: 500; margin-top: 0.15rem; }
-
-
-
-
+        .person h4 { font-size: 0.95rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+        .person .role { font-size: 0.76rem; color: var(--blue); font-weight: 500; margin-top: 0.15rem; }
 
         /* ===== SERVICES ===== */
-        .services-section { background: rgba(255,255,255,0.65); }
+        .services-section { background: transparent; }
         .services-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.2rem;
         }
         .service-card {
-            background: var(--cream); border-radius: 14px; padding: 1.8rem;
-            border: 1px solid transparent; transition: all 0.35s;
+            perspective: 1000px;
+            height: 280px;
             position: relative;
+            scroll-margin-top: 90px;
         }
-        .service-card:hover {
-            border-color: var(--garnet); transform: translateY(-3px);
-            box-shadow: 0 10px 35px rgba(115,0,10,0.06);
+        .service-card-inner {
+            position: relative;
+            width: 100%; height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
         }
-        .service-img {
-            width: 100%; height: 160px; object-fit: cover;
-            border-radius: 10px; margin-bottom: 1rem;
+        .service-card:hover .service-card-inner {
+            transform: rotateY(180deg);
         }
-        .service-card h3 { font-size: 1rem; font-weight: 700; color: var(--darker); margin-bottom: 0.4rem; }
-        .service-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
-        .service-card .includes {
-            margin-top: 0.8rem; padding-top: 0.8rem;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            font-size: 0.75rem; color: var(--gray);
+        .service-front, .service-back {
+            position: absolute; inset: 0;
+            border-radius: 14px;
+            backface-visibility: hidden;
+            overflow: hidden;
         }
-        .service-card .includes span {
-            display: inline-block; margin-right: 0.4rem; margin-bottom: 0.3rem;
-            padding: 0.15rem 0.5rem; border-radius: 4px;
-            background: rgba(0,0,0,0.03); font-weight: 500;
+        .service-front {
+            display: flex; align-items: flex-end;
+        }
+        .service-front img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .service-front::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.05) 100%);
+        }
+        .service-front h3 {
+            position: relative; z-index: 1;
+            padding: 1.4rem; font-size: 1.2rem; font-weight: 700;
+            color: var(--white); width: 100%;
+            transition: opacity 0.3s;
+        }
+        .service-card:hover .service-front h3 { opacity: 0; }
+        .service-back {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            transform: rotateY(180deg);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            padding: 2rem; text-align: center;
+        }
+        .service-back h3 {
+            font-size: 1.1rem; font-weight: 700; color: var(--white);
+            margin-bottom: 0.8rem;
+        }
+        .service-back p {
+            font-size: 0.85rem; color: var(--text-muted); line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .service-back .includes {
+            font-size: 0.75rem; color: var(--text-muted);
+        }
+        .service-back .includes span {
+            display: inline-block; margin: 0.15rem;
+            padding: 0.2rem 0.55rem; border-radius: 4px;
+            background: rgba(255,255,255,0.06); font-weight: 500;
         }
         .services-cta {
             text-align: center; margin-top: 2.5rem;
-            padding: 1.5rem; background: var(--cream); border-radius: 12px;
-            border: 1px dashed var(--light-gray);
+            padding: 1.5rem; background: var(--card-bg); border-radius: 12px;
+            border: 1px dashed rgba(255,255,255,0.1);
         }
         .services-cta p {
-            font-size: 0.92rem; color: var(--gray); margin-bottom: 0.8rem;
+            font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.8rem;
         }
-        .services-cta strong { color: var(--darker); }
+        .services-cta strong { color: var(--white); }
 
         /* ===== CTA BAND ===== */
         .cta-band {
             background: var(--darker); padding: 5rem 3rem; text-align: center;
             position: relative; overflow: hidden;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
         .cta-band::before {
             content: ''; position: absolute; inset: 0;
@@ -504,45 +545,46 @@
 
         /* ===== CONTACT ===== */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-        .contact-left p { color: var(--gray); font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; }
+        .contact-left p { color: var(--text-muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 2rem; }
         .c-items { display: flex; flex-direction: column; gap: 1rem; }
         .c-item { display: flex; gap: 0.7rem; align-items: flex-start; }
         .c-icon {
             width: 36px; height: 36px; border-radius: 8px;
-            background: rgba(115,0,10,0.05); color: var(--garnet);
+            background: rgba(26,143,196,0.1); color: var(--blue);
             display: flex; align-items: center; justify-content: center;
             font-size: 0.9rem; flex-shrink: 0;
         }
-        .c-lbl { font-size: 0.65rem; color: var(--gray); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
-        .c-val { font-size: 0.88rem; font-weight: 500; color: var(--darker); }
+        .c-lbl { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+        .c-val { font-size: 0.88rem; font-weight: 500; color: var(--white); }
         .c-form {
-            background: white; border: 1px solid rgba(0,0,0,0.06);
+            background: var(--card-bg); border: 1px solid var(--card-border);
             border-radius: 14px; padding: 2rem;
         }
-        .c-form h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--darker); }
+        .c-form h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.2rem; color: var(--white); }
         .field { margin-bottom: 0.9rem; }
-        .field label { display: block; font-size: 0.72rem; color: var(--gray); margin-bottom: 0.25rem; font-weight: 600; }
+        .field label { display: block; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 600; }
         .field input, .field textarea {
-            width: 100%; padding: 0.65rem 0.85rem; background: var(--cream);
-            border: 1px solid rgba(0,0,0,0.08); border-radius: 8px;
-            color: var(--dark); font-family: inherit; font-size: 0.85rem;
+            width: 100%; padding: 0.65rem 0.85rem; background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
+            color: var(--text); font-family: inherit; font-size: 0.85rem;
             transition: border-color 0.2s;
         }
-        .field input:focus, .field textarea:focus { outline: none; border-color: var(--garnet); }
+        .field input:focus, .field textarea:focus { outline: none; border-color: var(--blue); }
         .field textarea { resize: vertical; min-height: 80px; }
         .submit-btn {
-            width: 100%; padding: 0.7rem; background: var(--garnet);
+            width: 100%; padding: 0.7rem; background: var(--blue);
             border: none; border-radius: 8px; color: white;
             font-family: inherit; font-size: 0.85rem; font-weight: 600;
             cursor: pointer; transition: background 0.2s;
         }
-        .submit-btn:hover { background: var(--garnet-bright); }
+        .submit-btn:hover { background: #2199d0; }
 
         /* ===== FOOTER ===== */
         footer {
             padding: 2rem 3rem; background: var(--darkest);
             display: flex; align-items: center; justify-content: space-between;
             font-size: 0.72rem; color: rgba(255,255,255,0.3);
+            border-top: 1px solid rgba(255,255,255,0.04);
         }
         .f-links { display: flex; gap: 1.5rem; list-style: none; }
         .f-links a { color: rgba(255,255,255,0.35); transition: color 0.2s; }
@@ -559,15 +601,22 @@
         @media(max-width:900px) {
             nav { padding: 0 1.5rem; }
             .nav-links { display: none; }
+            .nav-actions { display: none; }
             .burger { display: block; }
             .nav-links.open {
                 display: flex; flex-direction: column; position: absolute;
-                top: 100%; left: 0; right: 0; background: rgba(255,255,255,0.97);
-                backdrop-filter: blur(20px); padding: 1rem; gap: 0.8rem;
-                border-bottom: 1px solid rgba(0,0,0,0.06);
+                top: 100%; left: 0; right: 0; background: rgba(5,7,13,0.97);
+                backdrop-filter: blur(20px); padding: 1.5rem; gap: 0.3rem;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
+            }
+            .nav-links.open + .nav-actions {
+                display: flex; flex-direction: column; position: absolute;
+                top: calc(100% + 200px); left: 0; right: 0;
+                background: rgba(5,7,13,0.97); padding: 0 1.5rem 1.5rem;
+                border-bottom: 1px solid rgba(255,255,255,0.06);
             }
             section { padding: 4rem 1.5rem; }
-            .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; text-align: center; }
+            .hero { padding: 6rem 1.5rem 3rem; text-align: center; }
             .hero-text { max-width: 100%; }
             .hero-btns { justify-content: center; }
             .hero-desc { margin-left: auto; margin-right: auto; }
@@ -595,68 +644,49 @@
 </div>
 
 <nav>
-    <a href="#" class="logo"><img src="aiisc-logo.png" alt="AI Institute - University of South Carolina"></a>
+    <a href="#top" class="logo"><img src="ai_institute_subunit_RGB_G_Rev.png" alt="AI Institute - University of South Carolina"></a>
     <ul class="nav-links" id="navLinks">
         <li><a href="#what">What We Do</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#people">People</a></li>
+        <li><a href="#services">Services</a>
+            <ul class="nav-dropdown">
+                <li><a href="#svc-consulting">AI Consulting</a></li>
+                <li><a href="#svc-grant">Grant &amp; Publication Support</a></li>
+                <li><a href="#svc-workshop">Workshops &amp; Training</a></li>
+                <li><a href="#svc-bootcamp">Coding Bootcamps</a></li>
+                <li><a href="#svc-data">Data Analytics</a></li>
+                <li><a href="#svc-research">Research Collaboration</a></li>
+            </ul>
+        </li>
+        <li><a href="#people">People</a>
+            <ul class="nav-dropdown">
+                <li><a href="#leadership">Leadership</a></li>
+                <li><a href="#core-faculty">Core Faculty</a></li>
+                <li><a href="#staff-scientists">Staff Scientists</a></li>
+                <li><a href="#advisory-board">Advisory Board</a></li>
+            </ul>
+        </li>
         <li><a href="#about">About</a></li>
-        <li><a href="#contact" class="cta">Contact Us</a></li>
     </ul>
+    <div class="nav-actions">
+        <a href="#contact" class="cta">Contact Us</a>
+    </div>
     <button class="burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="top">
+    <div class="hero-bg"></div>
+    <canvas class="hero-twinkle" id="twinkleCanvas"></canvas>
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="hero-glow hero-glow-3"></div>
     <div class="hero-text">
-        <div class="hero-label rv">Molinaroli College of Engineering &bull; UofSC</div>
+        <div class="hero-label rv">Molinaroli College of Engineering &bull; USC</div>
         <h1 class="rv">Human Intelligence<br>Meets <span class="color-cycle">Artificial</span></h1>
         <p class="hero-desc rv">We pair human expertise with cutting-edge AI to solve real problems &mdash; partnering with industry, healthcare, and government to deliver solutions that work.</p>
         <div class="hero-btns rv">
             <a href="#what" class="btn btn-primary">See What We Do &darr;</a>
             <a href="#contact" class="btn btn-outline">Partner With Us</a>
-        </div>
-    </div>
-    <div class="hero-visual rv">
-        <div class="card-stack" id="cardStack">
-            <div class="stack-card" data-pos="0">
-                <img src="brain pic.jpg" alt="AI Research">
-                <div class="card-body">
-                    <span class="card-tag tag-blue">Research</span>
-                    <h3>Creative AI Solutions</h3>
-                    <p>Turning cutting-edge research into real-world impact.</p>
-                </div>
-            </div>
-            <div class="stack-card" data-pos="1">
-                <img src="card-nlp.jpg" alt="AI & Natural Language Processing">
-                <div class="card-body">
-                    <span class="card-tag tag-teal">NLP</span>
-                    <h3>Language Understanding</h3>
-                    <p>Knowledge graphs and neuro-symbolic reasoning at scale.</p>
-                </div>
-            </div>
-            <div class="stack-card" data-pos="2">
-                <img src="card-health.jpg" alt="AI-Powered Healthcare">
-                <div class="card-body">
-                    <span class="card-tag tag-orange">Healthcare</span>
-                    <h3>AI-Powered Health</h3>
-                    <p>Deployed solutions for clinical and public health challenges.</p>
-                </div>
-            </div>
-            <div class="stack-card" data-pos="3">
-                <img src="card-data.jpg" alt="Data Analytics Dashboard">
-                <div class="card-body">
-                    <span class="card-tag tag-pink">Data Analytics</span>
-                    <h3>Actionable Insights</h3>
-                    <p>From raw data to decisions with statistical modeling and ML.</p>
-                </div>
-            </div>
-            <div class="stack-dots">
-                <div class="stack-dot active" data-i="0"></div>
-                <div class="stack-dot" data-i="1"></div>
-                <div class="stack-dot" data-i="2"></div>
-                <div class="stack-dot" data-i="3"></div>
-            </div>
         </div>
     </div>
 </section>
@@ -692,60 +722,89 @@
     </div>
 </section>
 
-<!-- PARTNER BAR -->
-<div class="partners-bar">
-    <div class="label">Trusted by industry partners</div>
-    <div class="partner-logos">
-        <span>NVIDIA</span>
-        <span>USC Health</span>
-        <span>SC Commerce</span>
-        <span>NSF</span>
-        <span>NIH</span>
-    </div>
-</div>
-
 <!-- SERVICES -->
 <section class="services-section" id="services">
     <div class="wrap">
         <div class="sec-label rv">Services</div>
         <div class="sec-title rv">What We Can Do For You</div>
-        <div class="sec-desc rv">From a one-hour consult to a full-year embedded partnership, we meet you where you are. Available to USC departments and external organizations.</div>
         <div class="services-grid stg">
-            <div class="service-card rv">
-                <img src="valafar board.jpg" alt="AI Consulting" class="service-img">
-                <h3>AI Consulting</h3>
-                <p>Initial consultations to assess AI/ML feasibility for your research or operational needs, plus technical scoping with a written project plan.</p>
-                <div class="includes"><span>Initial Consultation</span><span>Technical Scoping</span><span>Feasibility Assessment</span></div>
+            <div class="service-card rv" id="svc-consulting">
+                <div class="service-card-inner">
+                    <div class="service-front">
+                        <img src="valafar board.jpg" alt="AI Consulting">
+                        <h3>AI Consulting</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>AI Consulting</h3>
+                        <p>Initial consultations to assess AI/ML feasibility for your research or operational needs, plus technical scoping with a written project plan.</p>
+                        <div class="includes"><span>Initial Consultation</span><span>Technical Scoping</span><span>Feasibility Assessment</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="service-card rv">
-                <img src="svc-grant.jpg" alt="Grant & Publication Support" class="service-img">
-                <h3>Grant &amp; Publication Support</h3>
-                <p>Letters of support, drafting or reviewing AI/ML methodology sections for grant proposals, and technical review of manuscripts for publication.</p>
-                <div class="includes"><span>Letters of Support</span><span>Grant Technical Sections</span><span>Manuscript Review</span></div>
+            <div class="service-card rv" id="svc-grant">
+                <div class="service-card-inner">
+                    <div class="service-front">
+                        <img src="svc-grant.jpg" alt="Grant & Publication Support">
+                        <h3>Grant &amp; Publication Support</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Grant &amp; Publication Support</h3>
+                        <p>Letters of support, drafting or reviewing AI/ML methodology sections for grant proposals, and technical review of manuscripts for publication.</p>
+                        <div class="includes"><span>Letters of Support</span><span>Grant Technical Sections</span><span>Manuscript Review</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="service-card rv">
-                <img src="svc-workshop.jpg" alt="Workshops & Training" class="service-img">
-                <h3>Workshops &amp; Training</h3>
-                <p>AI literacy, ChatGPT applications, hands-on sessions, and intensive training &mdash; from 2-hour intros to multi-day programs. Custom content available.</p>
-                <div class="includes"><span>Intro Workshops</span><span>Half &amp; Full Day</span><span>Custom Workshops</span></div>
+            <div class="service-card rv" id="svc-workshop">
+                <div class="service-card-inner">
+                    <div class="service-front">
+                        <img src="svc-workshop.jpg" alt="Workshops & Training">
+                        <h3>Workshops &amp; Training</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Workshops &amp; Training</h3>
+                        <p>AI literacy, ChatGPT applications, hands-on sessions, and intensive training &mdash; from 2-hour intros to multi-day programs. Custom content available.</p>
+                        <div class="includes"><span>Intro Workshops</span><span>Half &amp; Full Day</span><span>Custom Workshops</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="service-card rv">
-                <img src="svc-code.jpg" alt="Coding Bootcamps" class="service-img">
-                <h3>Coding Bootcamps</h3>
-                <p>Python and ML fundamentals, applied ML and deep learning, and comprehensive multi-day programs for teams ready to build.</p>
-                <div class="includes"><span>3-Hour Bootcamp</span><span>6-Hour Extended</span><span>12-Hour Multi-Day</span></div>
+            <div class="service-card rv" id="svc-bootcamp">
+                <div class="service-card-inner">
+                    <div class="service-front">
+                        <img src="svc-code.jpg" alt="Coding Bootcamps">
+                        <h3>Coding Bootcamps</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Coding Bootcamps</h3>
+                        <p>Python and ML fundamentals, applied ML and deep learning, and comprehensive multi-day programs for teams ready to build.</p>
+                        <div class="includes"><span>3-Hour Bootcamp</span><span>6-Hour Extended</span><span>12-Hour Multi-Day</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="service-card rv">
-                <img src="svc-data.jpg" alt="Data Analytics" class="service-img">
-                <h3>Data Analytics</h3>
-                <p>Defined-deliverable engagements covering data cleaning, exploratory analysis, statistical modeling, and technical reporting &mdash; from 10-hour sprints to 100-hour enterprise projects.</p>
-                <div class="includes"><span>EDA &amp; Cleaning</span><span>Statistical Modeling</span><span>Technical Reporting</span></div>
+            <div class="service-card rv" id="svc-data">
+                <div class="service-card-inner">
+                    <div class="service-front">
+                        <img src="svc-data.jpg" alt="Data Analytics">
+                        <h3>Data Analytics</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Data Analytics</h3>
+                        <p>Defined-deliverable engagements covering data cleaning, exploratory analysis, statistical modeling, and technical reporting &mdash; from 10-hour sprints to 100-hour enterprise projects.</p>
+                        <div class="includes"><span>EDA &amp; Cleaning</span><span>Statistical Modeling</span><span>Technical Reporting</span></div>
+                    </div>
+                </div>
             </div>
-            <div class="service-card rv">
-                <img src="Valafar 2.jpg" alt="Research Collaboration" class="service-img">
-                <h3>Research Collaboration</h3>
-                <p>Embedded partnerships on funded research &mdash; from advisory roles to full-time dedicated AI scientists. Study design, model development, and publication support.</p>
-                <div class="includes"><span>Advisory (5 hrs/wk)</span><span>Part-Time</span><span>Half-Time</span><span>Full-Time</span></div>
+            <div class="service-card rv" id="svc-research">
+                <div class="service-card-inner">
+                    <div class="service-front">
+                        <img src="Valafar 2.jpg" alt="Research Collaboration">
+                        <h3>Research Collaboration</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Research Collaboration</h3>
+                        <p>Embedded partnerships on funded research &mdash; from advisory roles to full-time dedicated AI scientists. Study design, model development, and publication support.</p>
+                        <div class="includes"><span>Advisory (5 hrs/wk)</span><span>Part-Time</span><span>Half-Time</span><span>Full-Time</span></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="services-cta rv">
@@ -755,6 +814,56 @@
     </div>
 </section>
 
+
+<!-- PEOPLE -->
+<section class="people-section" id="people">
+    <div class="wrap">
+        <div class="sec-label rv">People</div>
+        <div class="sec-title rv">The Team</div>
+        <div class="sec-desc rv">Researchers and faculty driving AI innovation at the University of South Carolina.</div>
+
+        <div class="people-subsection" id="leadership" style="text-align:center">
+            <div class="subsection-title rv" style="text-align:center;">Leadership</div>
+            <div class="people-grid leadership-grid stg" style="justify-content:center">
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/homayounvalafar.php" target="_blank" class="person rv"><div class="avatar"><img src="Valafar headshot.png" alt="Dr. Homayoun Valafar" style="object-position: center 35%"></div><h4>Dr. Homayoun Valafar</h4><div class="role">Director, AI Institute &bull; Chair &amp; Professor, CSE</div></a>
+            </div>
+        </div>
+
+        <div class="people-subsection" id="core-faculty">
+            <div class="subsection-title rv" style="text-align:center;">Core Faculty</div>
+            <div class="people-grid stg" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem">
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/forest_agostinelli.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-agostinelli.jpg" alt="Dr. Forest Agostinelli"></div><h4>Dr. Forest Agostinelli</h4><div class="role">Assistant Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/jianjunhu.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-hu.jpg" alt="Dr. Jianjun Hu"></div><h4>Dr. Jianjun Hu</h4><div class="role">Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/narayanan_vignesh.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-narayanan.jpg" alt="Dr. Vignesh Narayanan"></div><h4>Dr. Vignesh Narayanan</h4><div class="role">Assistant Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/oreilly_christian.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-oreilly.jpg" alt="Dr. Christian O'Reilly"></div><h4>Dr. Christian O'Reilly</h4><div class="role">Assistant Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/amitsheth.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-sheth.jpg" alt="Dr. Amit Sheth"></div><h4>Dr. Amit Sheth</h4><div class="role">Founding Director &bull; NCR Chair &amp; Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/srivastava.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-srivastava.jpg" alt="Dr. Biplav Srivastava"></div><h4>Dr. Biplav Srivastava</h4><div class="role">Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/sur.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-sur.jpg" alt="Dr. Sanjib Sur"></div><h4>Dr. Sanjib Sur</h4><div class="role">Associate Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/yantong.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="tong.png" alt="Dr. Yan Tong"></div><h4>Dr. Yan Tong</h4><div class="role">Professor, CSE</div></a>
+                <a href="https://www.sc.edu/study/colleges_schools/engineering_and_computing/faculty-staff/zand.php" target="_blank" class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="head-zand.png" alt="Dr. Ramtin Zand"></div><h4>Dr. Ramtin Zand</h4><div class="role">Assistant Professor, CSE</div></a>
+            </div>
+        </div>
+
+        <div class="people-subsection" id="staff-scientists">
+            <div class="subsection-title rv" style="text-align:center;">Staff Scientists</div>
+            <div class="people-grid stg" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem">
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Kuba.png" alt="Kuba Jerzmanowski"></div><h4>Kuba Jerzmanowski</h4><div class="role">AI/ML Engineer I</div><div class="role" style="margin-top:0.3rem; color:var(--text-muted); font-size:0.68rem;">Sponsored by<br>USC Brain Health Center</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Chris Lee.png" alt="Christopher Lee"></div><h4>Christopher Lee</h4><div class="role">AI/ML Engineer II</div><div class="role" style="margin-top:0.3rem; color:var(--text-muted); font-size:0.68rem;">Sponsored by<br>College of Hospitality, Retail, and Sports Management</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Andrew Smith.jpg" alt="Andrew Smith"></div><h4>Andrew Smith</h4><div class="role">AI/ML Engineer II</div><div class="role" style="margin-top:0.3rem; color:var(--text-muted); font-size:0.68rem;">Sponsored by<br>Office of the Vice President for Research</div></div>
+            </div>
+        </div>
+
+        <div class="people-subsection" id="advisory-board">
+            <div class="subsection-title rv" style="text-align:center;">Advisory Board</div>
+            <div class="people-grid stg" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem">
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="adv-bonilha.png" alt="Dr. Leonardo Bonilha"></div><h4>Dr. Leonardo Bonilha</h4><div class="role">Sr. Assoc. Dean for Research, School of Medicine</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="adv-fridriksson.jpg" alt="Dr. Julius Fridriksson"></div><h4>Dr. Julius Fridriksson</h4><div class="role">Professor &amp; VP for Research, Arnold School of Public Health</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="adv-hajhariri.jpg" alt="Dr. Hossein Haj-Hariri"></div><h4>Dr. Hossein Haj-Hariri</h4><div class="role">Dean, Molinaroli College of Engineering &amp; Computing</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="adv-huhns.jpg" alt="Dr. Michael Huhns"></div><h4>Dr. Michael Huhns</h4><div class="role">NCR Distinguished Professor Emeritus, CSE</div></div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- ABOUT -->
 <section id="about">
@@ -791,57 +900,6 @@
         </div>
     </div>
 </section>
-
-<!-- PEOPLE -->
-<section class="people-section" id="people">
-    <div class="wrap">
-        <div class="sec-label rv">People</div>
-        <div class="sec-title rv">The Team</div>
-        <div class="sec-desc rv">Researchers and faculty driving AI innovation at the University of South Carolina.</div>
-
-        <div class="people-subsection" style="text-align:center">
-            <div class="subsection-title rv" style="text-align:center;">Leadership</div>
-            <div class="people-grid leadership-grid stg" style="justify-content:center">
-                <div class="person rv"><div class="avatar"><img src="Valafar headshot.png" alt="Dr. Homayoun Valafar" style="object-position: center 35%"></div><h4>Dr. Homayoun Valafar</h4><div class="role">Director, AI Institute &bull; Chair &amp; Professor, CSE</div></div>
-            </div>
-        </div>
-
-        <div class="people-subsection">
-            <div class="subsection-title rv" style="text-align:center;">Core Faculty</div>
-            <div class="people-grid stg">
-                <div class="person rv"><div class="avatar"><img src="head-agostinelli.jpg" alt="Dr. Forest Agostinelli"></div><h4>Dr. Forest Agostinelli</h4><div class="role">Assistant Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="head-hu.jpg" alt="Dr. Jianjun Hu"></div><h4>Dr. Jianjun Hu</h4><div class="role">Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="head-narayanan.jpg" alt="Dr. Vignesh Narayanan"></div><h4>Dr. Vignesh Narayanan</h4><div class="role">Assistant Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="head-oreilly.jpg" alt="Dr. Christian O'Reilly"></div><h4>Dr. Christian O'Reilly</h4><div class="role">Assistant Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="head-sheth.jpg" alt="Dr. Amit Sheth"></div><h4>Dr. Amit Sheth</h4><div class="role">Founding Director &bull; NCR Chair &amp; Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="head-srivastava.jpg" alt="Dr. Biplav Srivastava"></div><h4>Dr. Biplav Srivastava</h4><div class="role">Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="head-sur.jpg" alt="Dr. Sanjib Sur"></div><h4>Dr. Sanjib Sur</h4><div class="role">Associate Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="tong.png" alt="Dr. Yan Tong"></div><h4>Dr. Yan Tong</h4><div class="role">Professor, CSE</div></div>
-                <div class="person rv"><div class="avatar"><img src="head-zand.png" alt="Dr. Ramtin Zand"></div><h4>Dr. Ramtin Zand</h4><div class="role">Assistant Professor, CSE</div></div>
-            </div>
-        </div>
-
-        <div class="people-subsection">
-            <div class="subsection-title rv" style="text-align:center;">Staff Scientists</div>
-            <div class="people-grid stg" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem">
-                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Kuba.png" alt="Kuba Jerzmanowski"></div><h4>Kuba Jerzmanowski</h4><div class="role">AI/ML Engineer I</div></div>
-                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Chris Lee.png" alt="Christopher Lee"></div><h4>Christopher Lee</h4><div class="role">AI/ML Engineer II</div></div>
-                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="Andrew Smith.jpg" alt="Andrew Smith"></div><h4>Andrew Smith</h4><div class="role">AI/ML Engineer II</div></div>
-            </div>
-        </div>
-
-        <div class="people-subsection">
-            <div class="subsection-title rv" style="text-align:center;">Advisory Board</div>
-            <div class="people-grid stg">
-                <div class="person rv"><div class="avatar"><img src="adv-bonilha.png" alt="Dr. Leonardo Bonilha"></div><h4>Dr. Leonardo Bonilha</h4><div class="role">Sr. Assoc. Dean for Research, School of Medicine</div></div>
-                <div class="person rv"><div class="avatar"><img src="adv-fridriksson.jpg" alt="Dr. Julius Fridriksson"></div><h4>Dr. Julius Fridriksson</h4><div class="role">Professor &amp; VP for Research, Arnold School of Public Health</div></div>
-                <div class="person rv"><div class="avatar"><img src="adv-hajhariri.jpg" alt="Dr. Hossein Haj-Hariri"></div><h4>Dr. Hossein Haj-Hariri</h4><div class="role">Dean, Molinaroli College of Engineering &amp; Computing</div></div>
-                <div class="person rv"><div class="avatar"><img src="adv-huhns.jpg" alt="Dr. Michael Huhns"></div><h4>Dr. Michael Huhns</h4><div class="role">NCR Distinguished Professor Emeritus, CSE</div></div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <!-- CTA -->
 <div class="cta-band">
@@ -881,6 +939,7 @@
     <span>&copy; 2026 AI Institute of South Carolina &bull; University of South Carolina</span>
     <ul class="f-links">
         <li><a href="#what">What We Do</a></li>
+        <li><a href="#services">Services</a></li>
         <li><a href="#people">People</a></li>
         <li><a href="#contact">Contact</a></li>
     </ul>
@@ -913,46 +972,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
     if(t) t.scrollIntoView({behavior:'smooth'});
 }));
 
-// rotating card stack
-(function(){
-    const cards = document.querySelectorAll('.stack-card');
-    const dots = document.querySelectorAll('.stack-dot');
-    const total = cards.length;
-    let current = 0;
-    let interval;
-
-    function setPositions() {
-        cards.forEach((card, i) => {
-            const pos = (i - current + total) % total;
-            card.setAttribute('data-pos', pos);
-        });
-        dots.forEach((d, i) => d.classList.toggle('active', i === current));
-    }
-
-    function next() {
-        current = (current + 1) % total;
-        setPositions();
-    }
-
-    function goTo(i) {
-        current = i;
-        setPositions();
-        resetInterval();
-    }
-
-    function resetInterval() {
-        clearInterval(interval);
-        interval = setInterval(next, 3500);
-    }
-
-    // click card to cycle
-    cards.forEach(c => c.addEventListener('click', () => { next(); resetInterval(); }));
-    // click dots
-    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
-
-    resetInterval();
-})();
-
 // about carousel
 (function(){
     const wrap = document.getElementById('aboutCarousel');
@@ -978,10 +997,117 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
     startTimer();
 })();
 
+// neural network animation
+(function(){
+    const canvas = document.getElementById('twinkleCanvas');
+    const ctx = canvas.getContext('2d');
+    const NODES = 60;
+    const CONNECTION_DIST = 160;
+    const SIGNAL_CHANCE = 0.003;
+    let nodes = [], signals = [];
+
+    function resize() {
+        const hero = canvas.parentElement;
+        canvas.width = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+        if (nodes.length === 0) init();
+    }
+
+    function init() {
+        nodes = [];
+        for (let i = 0; i < NODES; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                r: Math.random() * 1.8 + 0.8
+            });
+        }
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // move nodes
+        nodes.forEach(n => {
+            n.x += n.vx;
+            n.y += n.vy;
+            if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+            if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+        });
+
+        // draw connections
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const dx = nodes[i].x - nodes[j].x;
+                const dy = nodes[i].y - nodes[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < CONNECTION_DIST) {
+                    const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.strokeStyle = 'rgba(100,200,255,' + alpha.toFixed(3) + ')';
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+
+                    // randomly fire a signal along this connection
+                    if (Math.random() < SIGNAL_CHANCE) {
+                        signals.push({
+                            x: nodes[i].x, y: nodes[i].y,
+                            tx: nodes[j].x, ty: nodes[j].y,
+                            progress: 0,
+                            speed: 0.012 + Math.random() * 0.015
+                        });
+                    }
+                }
+            }
+        }
+
+        // draw & update signals (traveling pulses)
+        signals = signals.filter(s => s.progress <= 1);
+        signals.forEach(s => {
+            s.progress += s.speed;
+            const cx = s.x + (s.tx - s.x) * s.progress;
+            const cy = s.y + (s.ty - s.y) * s.progress;
+            const a = Math.sin(s.progress * Math.PI);
+            // bright pulse
+            ctx.beginPath();
+            ctx.arc(cx, cy, 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(160,220,255,' + (a * 0.9).toFixed(2) + ')';
+            ctx.fill();
+            // glow
+            ctx.beginPath();
+            ctx.arc(cx, cy, 8, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(100,200,255,' + (a * 0.2).toFixed(2) + ')';
+            ctx.fill();
+        });
+
+        // draw nodes
+        nodes.forEach(n => {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(140,210,255,0.5)';
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, n.r * 2.5, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(100,200,255,0.08)';
+            ctx.fill();
+        });
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
+
 // form
 document.getElementById('cForm').addEventListener('submit', e => {
     e.preventDefault(); const b=e.target.querySelector('.submit-btn');
-    b.textContent='Sent!'; b.style.background='#1a8fc4';
+    b.textContent='Sent!'; b.style.background='var(--teal)';
     setTimeout(()=>{b.textContent='Send Message';b.style.background='';e.target.reset()},2500);
 });
 </script>
