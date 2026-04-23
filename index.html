@@ -617,27 +617,57 @@
             box-shadow: 0 6px 18px rgba(26,143,196,0.35);
         }
         .upcoming-badge {
-            position: absolute; top: 1rem; right: 1rem; z-index: 2;
-            display: inline-flex; align-items: center; gap: 0.4rem;
-            padding: 0.35rem 0.7rem;
-            background: rgba(26,143,196,0.95);
+            position: absolute; top: 0.9rem; right: 0.9rem; z-index: 2;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 0.9rem;
+            background: linear-gradient(90deg,
+                rgba(26,143,196,0.98) 0%,
+                rgba(24,181,160,0.98) 33%,
+                rgba(26,143,196,0.98) 66%,
+                rgba(24,181,160,0.98) 100%);
+            background-size: 300% 100%;
+            animation: badgeShift 5s ease-in-out infinite;
             backdrop-filter: blur(10px);
             border-radius: 50px;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.68rem; font-weight: 600;
-            color: #ffffff; text-transform: uppercase; letter-spacing: 0.08em;
-            box-shadow: 0 4px 14px rgba(26,143,196,0.3);
+            font-size: 0.72rem; font-weight: 700;
+            color: #ffffff; text-transform: uppercase; letter-spacing: 0.1em;
+            box-shadow: 0 6px 20px rgba(26,143,196,0.4),
+                        0 0 0 1px rgba(255,255,255,0.1) inset;
+        }
+        @keyframes badgeShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
         .upcoming-badge .dot {
-            width: 6px; height: 6px; border-radius: 50%;
+            width: 7px; height: 7px; border-radius: 50%;
             background: #ffffff;
-            animation: pulseDot 2s ease-in-out infinite;
+            box-shadow: 0 0 0 0 rgba(255,255,255,0.6);
+            animation: pulseDot 1.8s ease-in-out infinite;
         }
         @keyframes pulseDot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.65); }
+            50% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
         }
         .service-card:hover .upcoming-badge { opacity: 0; transition: opacity 0.3s; }
+
+        /* Highlight the card containing the upcoming series */
+        #svc-workshop {
+            animation: svcGlow 2.8s ease-in-out infinite;
+        }
+        #svc-workshop:hover { animation: none; }
+        @keyframes svcGlow {
+            0%, 100% {
+                box-shadow: 0 0 0 1px rgba(26,143,196,0.3),
+                            0 0 20px rgba(26,143,196,0.12);
+            }
+            50% {
+                box-shadow: 0 0 0 2px rgba(26,143,196,0.65),
+                            0 0 36px rgba(26,143,196,0.35);
+            }
+        }
+        #svc-workshop .service-front,
+        #svc-workshop .service-back { border-radius: 14px; }
         .services-cta {
             text-align: center; margin-top: 2.5rem;
             padding: 1.5rem; background: var(--card-bg); border-radius: 12px;

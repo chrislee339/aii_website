@@ -490,6 +490,64 @@
             color: var(--text-muted); font-size: 1rem;
             margin-bottom: 2rem; max-width: 560px; margin-left: auto; margin-right: auto;
         }
+        .cta-toggle-icon { transition: transform 0.3s; display: inline-block; }
+        #toggleContact.open .cta-toggle-icon { transform: rotate(180deg); }
+        .cta-form {
+            max-width: 520px; margin: 0 auto;
+            max-height: 0; opacity: 0; overflow: hidden;
+            text-align: left;
+            transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1),
+                        opacity 0.35s ease,
+                        margin-top 0.3s ease;
+        }
+        .cta-form.open {
+            max-height: 640px; opacity: 1; margin-top: 1.5rem;
+        }
+        .cta-form-inner {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 1.8rem;
+        }
+        .cta-form .field { margin-bottom: 1rem; }
+        .cta-form label {
+            display: block; font-size: 0.78rem; color: var(--text-muted);
+            margin-bottom: 0.3rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.05em;
+        }
+        .cta-form input, .cta-form textarea {
+            width: 100%; padding: 0.7rem 0.9rem;
+            background: var(--input-bg, rgba(255,255,255,0.04));
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: var(--text); font-family: inherit; font-size: 0.92rem;
+            transition: border-color 0.2s;
+        }
+        .cta-form input:focus, .cta-form textarea:focus {
+            outline: none; border-color: var(--blue);
+        }
+        .cta-form textarea { resize: vertical; min-height: 90px; }
+        .cta-form .submit-btn {
+            width: 100%; padding: 0.8rem; background: var(--blue);
+            border: none; border-radius: 8px; color: #ffffff;
+            font-family: inherit; font-size: 0.95rem; font-weight: 600;
+            cursor: pointer; transition: background 0.2s, transform 0.2s;
+        }
+        .cta-form .submit-btn:hover { background: #2199d0; transform: translateY(-1px); }
+        .cta-form .submit-btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+        .cta-form-msg {
+            margin-top: 0.9rem; padding: 0.7rem 0.9rem;
+            border-radius: 8px; font-size: 0.88rem;
+            display: none;
+        }
+        .cta-form-msg.success {
+            display: block; background: rgba(24,181,160,0.12);
+            border: 1px solid rgba(24,181,160,0.4); color: var(--teal);
+        }
+        .cta-form-msg.error {
+            display: block; background: rgba(214,74,123,0.12);
+            border: 1px solid rgba(214,74,123,0.4); color: var(--pink);
+        }
         .btn {
             display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.9rem 1.8rem;
@@ -631,10 +689,10 @@
         <div class="instructors-grid" id="instructorsGrid">
             <div class="instructor-card rv" tabindex="0" role="button" aria-label="Show bio for Dr. Homayoun Valafar"
                  data-name="Dr. Homayoun Valafar"
-                 data-role="Director · Professor &amp; Chair, CSE"
+                 data-role="Director · Bank of America Endowed Chair in CS"
                  data-photo="Valafar headshot.png"
                  data-photo-pos="center 35%"
-                 data-bio="Director of the AI Institute of South Carolina and Professor and Chair of Computer Science &amp; Engineering at the University of South Carolina. Leads the Institute's research, training, and industry engagement across applied AI.">
+                 data-bio="Homayoun Valafar is the Bank of America Endowed Chair in Computer Science and a Professor and Chair of Computer Science and Engineering at the University of South Carolina, where he also serves as Director of the AI Institute. With more than three decades of experience in artificial intelligence and machine learning, his work spans both foundational AI research and real-world applications, particularly in healthcare and computational biology. Dr. Valafar has led or contributed to over $100 million in research funding and has developed numerous AI-driven tools for disease diagnosis, prognosis, and biomedical discovery. He is widely recognized for advancing AI applications in areas such as genomics, cancer research, and personalized medicine.">
                 <img class="ins-photo" src="Valafar headshot.png" alt="Dr. Homayoun Valafar" style="object-position: center 35%;">
                 <div class="ins-plus">+</div>
                 <div class="ins-meta">
@@ -797,7 +855,29 @@
     <div class="wrap">
         <h2 class="rv">Interested in attending?</h2>
         <p class="rv">Registration details coming soon. Reach out for questions about content, custom sessions for your department, or to be notified when registration opens.</p>
-        <a href="index.html#contact" class="btn btn-primary rv">Contact Us →</a>
+        <button type="button" class="btn btn-primary rv" id="toggleContact" aria-expanded="false" aria-controls="ctaForm">
+            Contact Us <span class="cta-toggle-icon">↓</span>
+        </button>
+        <div class="cta-form" id="ctaForm" aria-hidden="true">
+            <div class="cta-form-inner">
+                <form id="wsContactForm">
+                    <div class="field">
+                        <label for="wsName">Name</label>
+                        <input id="wsName" name="name" type="text" placeholder="Your name" required>
+                    </div>
+                    <div class="field">
+                        <label for="wsEmail">Email</label>
+                        <input id="wsEmail" name="email" type="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="field">
+                        <label for="wsMessage">Message</label>
+                        <textarea id="wsMessage" name="message" placeholder="I'm interested in the Summer 2026 workshop series..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    <div class="cta-form-msg" id="wsFormMsg" role="status" aria-live="polite"></div>
+                </form>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -855,6 +935,55 @@
         card.addEventListener('keydown', activate);
     });
     bpClose.addEventListener('click', closeBioPanel);
+
+    // contact form dropdown + submit
+    const toggleBtn = document.getElementById('toggleContact');
+    const ctaForm = document.getElementById('ctaForm');
+    const wsForm = document.getElementById('wsContactForm');
+    const wsFormMsg = document.getElementById('wsFormMsg');
+
+    if (toggleBtn && ctaForm) {
+        toggleBtn.addEventListener('click', () => {
+            const isOpen = ctaForm.classList.toggle('open');
+            toggleBtn.classList.toggle('open', isOpen);
+            toggleBtn.setAttribute('aria-expanded', isOpen);
+            ctaForm.setAttribute('aria-hidden', !isOpen);
+            if (isOpen) setTimeout(() => document.getElementById('wsName').focus(), 300);
+        });
+    }
+
+    if (wsForm) {
+        wsForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = wsForm.querySelector('.submit-btn');
+            const originalLabel = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+            wsFormMsg.className = 'cta-form-msg';
+            wsFormMsg.textContent = '';
+
+            try {
+                const res = await fetch('send.php', {
+                    method: 'POST',
+                    body: new FormData(wsForm)
+                });
+                const data = await res.json().catch(() => ({}));
+                if (res.ok && data.status === 'success') {
+                    wsFormMsg.className = 'cta-form-msg success';
+                    wsFormMsg.textContent = '✓ Message sent. We\'ll be in touch soon.';
+                    wsForm.reset();
+                } else {
+                    throw new Error(data.message || 'Something went wrong.');
+                }
+            } catch (err) {
+                wsFormMsg.className = 'cta-form-msg error';
+                wsFormMsg.textContent = 'Could not send: ' + err.message + ' Please email aiisc@mailbox.sc.edu directly.';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalLabel;
+            }
+        });
+    }
 
     // reveal on scroll
     const io = new IntersectionObserver((entries) => {
