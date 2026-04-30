@@ -176,9 +176,7 @@
             margin-bottom: 0.8rem;
         }
         .workshop-hero h1 .accent {
-            background: linear-gradient(90deg, var(--garnet-bright), var(--orange));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--garnet-bright);
         }
         .workshop-hero .subtitle {
             font-size: 1.3rem; font-weight: 600; color: var(--text);
@@ -253,11 +251,8 @@
         .session-card::before {
             content: ''; position: absolute;
             top: 0; left: 0; width: 4px; height: 100%;
-            background: var(--accent-color, var(--blue));
+            background: var(--garnet);
         }
-        .session-card.s1 { --accent-color: var(--blue); }
-        .session-card.s2 { --accent-color: var(--teal); }
-        .session-card.s3 { --accent-color: var(--orange); }
 
         .session-date {
             display: flex; flex-direction: column; gap: 0.4rem;
