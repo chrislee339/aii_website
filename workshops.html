@@ -572,11 +572,42 @@
 
         /* footer */
         footer {
-            padding: 2rem 3rem; background: var(--darkest);
+            /* always-garnet, regardless of theme */
+            --footer-text: rgba(255,255,255,0.7);
+            --footer-link: rgba(255,255,255,0.75);
+            --nav-link: rgba(255,255,255,0.75);
+            --white: #ffffff;
+            --hover-bg: rgba(255,255,255,0.08);
+            padding: 2rem 3rem; background: var(--garnet);
             display: flex; align-items: center; justify-content: space-between;
             font-size: 0.78rem; color: var(--footer-text);
-            border-top: 1px solid var(--card-border);
+            border-top: 1px solid rgba(0,0,0,0.25);
+            gap: 1.5rem; flex-wrap: wrap;
         }
+        .footer-left {
+            display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+        }
+        .usc-lockup {
+            display: inline-flex; align-items: center;
+            opacity: 0.75; transition: opacity 0.2s;
+        }
+        .usc-lockup:hover { opacity: 1; }
+        .usc-lockup img { height: 28px; width: auto; display: block; }
+
+        /* Header: always dark, both themes */
+        nav {
+            --nav-bg: rgba(0,0,0,0.92);
+            --nav-bg-scrolled: rgba(0,0,0,0.97);
+            --nav-link: rgba(255,255,255,0.6);
+            --border-subtle: rgba(255,255,255,0.08);
+            --hover-bg: rgba(255,255,255,0.06);
+            --card-border: rgba(255,255,255,0.06);
+            --white: #ffffff;
+            --dark: #0a0a0a;
+            --text: #e8e8ea;
+        }
+        html[data-theme="light"] .logo .logo-dark { display: block; }
+        html[data-theme="light"] .logo .logo-light { display: none; }
 
         /* reveal */
         .rv { opacity: 0; transform: translateY(24px); transition: all 0.65s cubic-bezier(0.16,1,0.3,1); }
@@ -886,7 +917,12 @@
 </section>
 
 <footer>
-    <div>© 2026 AI Institute of South Carolina · University of South Carolina</div>
+    <div class="footer-left">
+        <span>© 2026 AI Institute of South Carolina</span>
+        <a class="usc-lockup" href="https://sc.edu" target="_blank" rel="noopener">
+            <img src="https://assets.sc.edu/_global_resources/img/usc_logo_horizontal_rgb_k_rev.svg" alt="University of South Carolina Home">
+        </a>
+    </div>
     <a href="index.html" class="back-link">← Back to main site</a>
 </footer>
 

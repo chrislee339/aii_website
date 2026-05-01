@@ -752,11 +752,25 @@
 
         /* ===== FOOTER ===== */
         footer {
-            padding: 2rem 3rem; background: var(--darkest);
+            /* always-garnet, regardless of theme */
+            --footer-text: rgba(255,255,255,0.7);
+            --footer-link: rgba(255,255,255,0.75);
+            --white: #ffffff;
+            padding: 2rem 3rem; background: var(--garnet);
             display: flex; align-items: center; justify-content: space-between;
             font-size: 0.72rem; color: var(--footer-text);
-            border-top: 1px solid var(--border-soft);
+            border-top: 1px solid rgba(0,0,0,0.25);
+            gap: 1.5rem; flex-wrap: wrap;
         }
+        .footer-left {
+            display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+        }
+        .usc-lockup {
+            display: inline-flex; align-items: center;
+            opacity: 0.75; transition: opacity 0.2s;
+        }
+        .usc-lockup:hover { opacity: 1; }
+        .usc-lockup img { height: 28px; width: auto; display: block; }
         .f-links { display: flex; gap: 1.5rem; list-style: none; }
         .f-links a { color: var(--footer-link); transition: color 0.2s; }
         .f-links a:hover { color: var(--white); }
@@ -806,6 +820,25 @@
             .hero-glow { display: none; }
             #twinkleCanvas { display: none; }
         }
+
+        /* ===== HEADER: ALWAYS DARK (both light and dark themes) ===== */
+        nav {
+            --nav-bg: rgba(0,0,0,0.92);
+            --nav-bg-scrolled: rgba(0,0,0,0.97);
+            --nav-dropdown-bg: rgba(15,15,15,0.97);
+            --nav-link: rgba(255,255,255,0.6);
+            --nav-dropdown-link: rgba(255,255,255,0.55);
+            --border-subtle: rgba(255,255,255,0.08);
+            --hover-bg: rgba(255,255,255,0.06);
+            --shadow-color: rgba(0,0,0,0.4);
+            --card-border: rgba(255,255,255,0.06);
+            --btn-outline-border: rgba(255,255,255,0.15);
+            --white: #ffffff;
+            --dark: #0a0a0a;
+            --text: #e8e8ea;
+        }
+        html[data-theme="light"] .logo .logo-dark { display: block; }
+        html[data-theme="light"] .logo .logo-light { display: none; }
     </style>
     <script>
         // FOUC prevention: apply saved theme or system preference before first paint
@@ -1129,7 +1162,12 @@
 </section>
 
 <footer>
-    <span>&copy; 2026 AI Institute of South Carolina &bull; University of South Carolina</span>
+    <div class="footer-left">
+        <span>&copy; 2026 AI Institute of South Carolina</span>
+        <a class="usc-lockup" href="https://sc.edu" target="_blank" rel="noopener">
+            <img src="https://assets.sc.edu/_global_resources/img/usc_logo_horizontal_rgb_k_rev.svg" alt="University of South Carolina Home">
+        </a>
+    </div>
     <ul class="f-links">
         <li><a href="#what">What We Do</a></li>
         <li><a href="#services">Services</a></li>
