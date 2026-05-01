@@ -235,20 +235,19 @@
         }
         /* brain background image */
         .hero-bg {
-            position: absolute; inset: 0; z-index: 0;
+            position: absolute; left: 0; right: 0; top: -10%; bottom: -10%;
+            z-index: 0;
             background: url('aii_bannerv4.png') center 30% / cover no-repeat;
-            animation: heroZoom 25s ease-in-out infinite alternate;
             image-rendering: -webkit-optimize-contrast;
             filter: contrast(1.1) saturate(1.15);
-            transform: translateZ(0); backface-visibility: hidden;
+            transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.08);
+            transform-origin: center center;
+            backface-visibility: hidden;
+            will-change: transform;
         }
         .hero-bg::after {
             content: ''; position: absolute; inset: 0;
             background: var(--hero-overlay);
-        }
-        @keyframes heroZoom {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.08); }
         }
         /* animated glow pulses */
         .hero-glow {
@@ -875,12 +874,12 @@
         <li><a href="#what">What We Do</a></li>
         <li><a href="#services">Services</a>
             <ul class="nav-dropdown">
-                <li><a href="#svc-consulting">AI Consulting</a></li>
-                <li><a href="#svc-grant">Grant &amp; Publication Support</a></li>
+                <li><a href="#svc-research">Research Collaboration</a></li>
                 <li><a href="#svc-workshop">Workshops &amp; Training</a></li>
+                <li><a href="#svc-grant">Grant &amp; Publication Support</a></li>
                 <li><a href="#svc-bootcamp">Coding Bootcamps</a></li>
                 <li><a href="#svc-data">Data Analytics</a></li>
-                <li><a href="#svc-research">Research Collaboration</a></li>
+                <li><a href="#svc-consulting">AI Consulting</a></li>
             </ul>
         </li>
         <li><a href="#people">People</a>
@@ -955,29 +954,16 @@
     <div class="wrap">
         <div class="sec-title rv">What We Can Do For You</div>
         <div class="services-grid stg">
-            <div class="service-card card-wide rv" id="svc-consulting">
+            <div class="service-card card-wide rv" id="svc-research">
                 <div class="service-card-inner">
                     <div class="service-front">
-                        <img src="valafar-board.jpg" alt="AI Consulting">
-                        <h3>AI Consulting</h3>
+                        <img src="valafar-2.jpg" alt="Research Collaboration">
+                        <h3>Research Collaboration</h3>
                     </div>
                     <div class="service-back">
-                        <h3>AI Consulting</h3>
-                        <p>Initial consultations to assess AI/ML feasibility for your research or operational needs, plus technical scoping with a written project plan.</p>
-                        <div class="includes"><span>Initial Consultation</span><span>Technical Scoping</span><span>Feasibility Assessment</span></div>
-                    </div>
-                </div>
-            </div>
-            <div class="service-card rv" id="svc-grant">
-                <div class="service-card-inner">
-                    <div class="service-front">
-                        <img src="svc-grant.jpg" alt="Grant & Publication Support">
-                        <h3>Grant &amp; Publication Support</h3>
-                    </div>
-                    <div class="service-back">
-                        <h3>Grant &amp; Publication Support</h3>
-                        <p>Letters of support, drafting or reviewing AI/ML methodology sections for grant proposals, and technical review of manuscripts for publication.</p>
-                        <div class="includes"><span>Letters of Support</span><span>Grant Technical Sections</span><span>Manuscript Review</span></div>
+                        <h3>Research Collaboration</h3>
+                        <p>Embedded partnerships on funded research &mdash; from advisory roles to full-time dedicated AI scientists. Study design, model development, and publication support.</p>
+                        <div class="includes"><span>Advisory (5 hrs/wk)</span><span>Part-Time</span><span>Half-Time</span><span>Full-Time</span></div>
                     </div>
                 </div>
             </div>
@@ -993,6 +979,19 @@
                         <p>AI literacy, ChatGPT applications, hands-on sessions, and intensive training &mdash; from 2-hour intros to multi-day programs. Custom content available.</p>
                         <div class="includes"><span>Intro Workshops</span><span>Half &amp; Full Day</span><span>Custom Workshops</span></div>
                         <a href="workshops.html" class="back-cta">View Summer 2026 Series →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="service-card rv" id="svc-grant">
+                <div class="service-card-inner">
+                    <div class="service-front">
+                        <img src="svc-grant.jpg" alt="Grant & Publication Support">
+                        <h3>Grant &amp; Publication Support</h3>
+                    </div>
+                    <div class="service-back">
+                        <h3>Grant &amp; Publication Support</h3>
+                        <p>Letters of support, drafting or reviewing AI/ML methodology sections for grant proposals, and technical review of manuscripts for publication.</p>
+                        <div class="includes"><span>Letters of Support</span><span>Grant Technical Sections</span><span>Manuscript Review</span></div>
                     </div>
                 </div>
             </div>
@@ -1022,16 +1021,16 @@
                     </div>
                 </div>
             </div>
-            <div class="service-card card-wide rv" id="svc-research">
+            <div class="service-card card-wide rv" id="svc-consulting">
                 <div class="service-card-inner">
                     <div class="service-front">
-                        <img src="valafar-2.jpg" alt="Research Collaboration">
-                        <h3>Research Collaboration</h3>
+                        <img src="valafar-board.jpg" alt="AI Consulting">
+                        <h3>AI Consulting</h3>
                     </div>
                     <div class="service-back">
-                        <h3>Research Collaboration</h3>
-                        <p>Embedded partnerships on funded research &mdash; from advisory roles to full-time dedicated AI scientists. Study design, model development, and publication support.</p>
-                        <div class="includes"><span>Advisory (5 hrs/wk)</span><span>Part-Time</span><span>Half-Time</span><span>Full-Time</span></div>
+                        <h3>AI Consulting</h3>
+                        <p>Initial consultations to assess AI/ML feasibility for your research or operational needs, plus technical scoping with a written project plan.</p>
+                        <div class="includes"><span>Initial Consultation</span><span>Technical Scoping</span><span>Feasibility Assessment</span></div>
                     </div>
                 </div>
             </div>
@@ -1193,6 +1192,30 @@ themeBtn && themeBtn.addEventListener('click', () => {
 // nav
 const nv = document.querySelector('nav');
 addEventListener('scroll', () => nv.classList.toggle('scrolled', scrollY > 40));
+
+// hero parallax
+(function(){
+    const heroBg = document.querySelector('.hero-bg');
+    if (!heroBg) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+    let ticking = false;
+    function update() {
+        if (window.innerWidth <= 900) {
+            heroBg.style.setProperty('--parallax-y', '0px');
+            ticking = false;
+            return;
+        }
+        const y = Math.min(window.scrollY, window.innerHeight) * 0.35;
+        heroBg.style.setProperty('--parallax-y', y + 'px');
+        ticking = false;
+    }
+    addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    addEventListener('resize', update, { passive: true });
+    update();
+})();
 document.getElementById('burger').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
 document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
 
