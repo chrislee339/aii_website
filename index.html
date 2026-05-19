@@ -292,14 +292,16 @@
             margin-bottom: 1.5rem;
         }
         .hero h1 {
-            font-size: clamp(2.8rem, 5vw, 4rem);
-            font-weight: 800; line-height: 1.08;
+            font-size: clamp(2rem, 7vw, 4.8rem);
+            font-weight: 800; line-height: 1.15;
             letter-spacing: -0.03em;
             color: var(--white);
             margin-bottom: 1.2rem;
         }
+        .hero h1 .hero-line { display: block; white-space: nowrap; }
+        .hero h1 .hero-line + .hero-line { margin-top: 0.35em; }
         .hero h1 .color-cycle {
-            background: linear-gradient(90deg, var(--garnet-bright), var(--orange), var(--garnet-bright));
+            background: linear-gradient(90deg, var(--garnet), var(--garnet-bright), var(--garnet));
             background-size: 300% 100%;
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -541,9 +543,18 @@
             .service-card { height: 260px; }
         }
         @media (max-width: 580px) {
-            .services-grid { grid-template-columns: 1fr; }
+            /* Keep 2-up on phones rather than collapsing to a single tall column */
+            .services-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
             .service-card.card-wide { grid-column: span 1; }
-            .service-card { height: 240px; }
+            .service-card { height: 200px; }
+            .service-front h3 { font-size: 0.95rem; padding: 0.9rem; }
+            .service-back { padding: 0.9rem; }
+            .service-back h3 { font-size: 0.92rem; margin-bottom: 0.45rem; }
+            .service-back p { font-size: 0.72rem; line-height: 1.45; margin-bottom: 0.55rem; }
+            .service-back .includes { font-size: 0.66rem; }
+            .service-back .includes span { padding: 0.15rem 0.4rem; margin: 0.1rem; }
+            .service-back .back-cta { font-size: 0.7rem; padding: 0.35rem 0.7rem; margin-top: 0.5rem; }
+            .upcoming-badge { font-size: 0.58rem; padding: 0.3rem 0.55rem; top: 0.5rem; right: 0.5rem; letter-spacing: 0.06em; }
         }
         .service-card-inner {
             position: relative;
@@ -804,12 +815,37 @@
             .hero-text { max-width: 100%; }
             .hero-btns { justify-content: center; }
             .hero-desc { margin-left: auto; margin-right: auto; }
-            .stats-row, .about-grid, .contact-grid { grid-template-columns: 1fr 1fr; }
+            .stats-row, .about-grid { grid-template-columns: 1fr 1fr; }
             .about-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .c-form { padding: 1.5rem; }
+            .c-form h3 { font-size: 1rem; margin-bottom: 1rem; }
         }
         @media(max-width:600px) {
             .stats-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
             .hero-btns { flex-direction: column; align-items: center; }
+
+            /* Two-up impact cards ("What We Do") — override the auto-fit:minmax(240px) default */
+            .impact-grid { grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+            .impact-card { padding: 1.2rem 1rem; }
+            .impact-card h3 { font-size: 0.95rem; }
+            .impact-card p { font-size: 0.8rem; line-height: 1.5; }
+            .impact-accent { width: 28px; margin-bottom: 0.8rem; }
+
+            /* Two-up, smaller people cards on phones. Keep flex-wrap + justify-content:center
+               (already set inline on the containers) so an odd leftover card centers itself
+               and a solo leadership card stays centered. Override inline width:190px. */
+            .people-grid.stg:not(.leadership-grid) {
+                gap: 0.8rem !important;
+            }
+            .people-grid.stg:not(.leadership-grid) .person {
+                width: calc(50% - 0.4rem) !important;
+                min-height: 0;
+                padding: 1rem 0.6rem;
+            }
+            .people-grid.stg .avatar { width: 76px; height: 76px; margin-bottom: 0.6rem; }
+            .people-grid.stg .person h4 { font-size: 0.88rem; padding: 0; }
+            .people-grid.stg .person .role { font-size: 0.72rem; }
         }
 
         /* Disable heavy animations on mobile to prevent flickering */
@@ -910,12 +946,7 @@
     <div class="hero-glow hero-glow-3"></div>
     <div class="hero-text">
         <div class="hero-label rv">Molinaroli College of Engineering &bull; USC</div>
-        <h1 class="rv">Human Intelligence<br>Meets <span class="color-cycle">Artificial</span></h1>
-        <p class="hero-desc rv">We pair human expertise with cutting-edge AI to solve real problems &mdash; partnering with industry, healthcare, and government to deliver solutions that work.</p>
-        <div class="hero-btns rv">
-            <a href="#what" class="btn btn-primary">See What We Do &darr;</a>
-            <a href="#contact" class="btn btn-outline">Partner With Us</a>
-        </div>
+        <h1 class="rv"><span class="hero-line">Human Intelligence</span><span class="hero-line">Meets <span class="color-cycle">Artificial</span></span></h1>
     </div>
 </section>
 
