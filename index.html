@@ -381,20 +381,14 @@
             gap: 1.2rem;
         }
         .impact-card {
-            background: var(--card-bg); border-radius: 14px; padding: 2rem;
+            background: var(--card-bg); border-radius: 6px; padding: 1.8rem;
             border: 1px solid var(--card-border);
-            transition: all 0.35s;
-            position: relative; overflow: hidden;
+            border-left: 3px solid var(--garnet-bright);
+            transition: border-color 0.25s, background 0.25s;
         }
         .impact-card:hover {
             border-color: var(--garnet-bright);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(204,46,64,0.12);
-        }
-        .impact-accent {
-            width: 40px; height: 4px; border-radius: 2px;
-            margin-bottom: 1.2rem;
-            background: var(--garnet-bright);
+            background: var(--hover-bg);
         }
         .impact-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--white); }
         .impact-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
@@ -431,22 +425,16 @@
             margin-bottom: 1rem;
         }
         .research-areas {
-            display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem;
+            display: flex; flex-wrap: wrap; align-items: baseline;
+            gap: 0.1rem 0; margin-top: 1.4rem;
         }
         .area-tag {
-            padding: 0.35rem 0.85rem; border-radius: 50px;
-            font-size: 0.82rem; font-weight: 600;
-            border: 1.5px solid;
+            font-size: 0.95rem; font-weight: 500; color: var(--text);
+            padding: 0; border: none;
         }
-        .area-tag:nth-child(odd) {
-            color: var(--garnet-bright);
-            border-color: rgba(160,21,37,0.45);
-            background: rgba(160,21,37,0.12);
-        }
-        .area-tag:nth-child(even) {
-            color: var(--text);
-            border-color: var(--border-subtle);
-            background: var(--hover-bg);
+        .area-tag:not(:last-child)::after {
+            content: "·"; margin: 0 0.6rem;
+            color: var(--garnet-bright); font-weight: 700;
         }
 
         /* ===== ABOUT CAROUSEL ===== */
@@ -990,27 +978,19 @@
 <!-- WHAT WE DO -->
 <section class="impact-section" id="what">
     <div class="wrap">
-        <div class="sec-title rv">Your Challenge, Our Expertise</div>
-        <div class="sec-desc rv">We don't just publish papers. We build AI that goes into production, creates patents, and launches companies.</div>
+        <div class="sec-title rv">What We Do</div>
+        <div class="sec-desc rv">The Institute combines foundational AI research with applied work &mdash; building models and tools alongside partners in industry, healthcare, and government.</div>
         <div class="impact-grid stg">
-            <div class="impact-card rv">
-                <div class="impact-accent"></div>
-                <h3>Industry Research</h3>
-                <p>World-class foundational and interdisciplinary AI research that pushes boundaries and delivers results partners can use.</p>
+            <div class="impact-card rv">                <h3>Industry Research</h3>
+                <p>Foundational and applied AI research across language, vision, and computational biology &mdash; work built both to publish and to deploy.</p>
             </div>
-            <div class="impact-card rv">
-                <div class="impact-accent"></div>
-                <h3>Patents &amp; Commercialization</h3>
+            <div class="impact-card rv">                <h3>Patents &amp; Commercialization</h3>
                 <p>From SBIR/STTR projects to licensing deals, we turn research into products through active industry collaboration.</p>
             </div>
-            <div class="impact-card rv">
-                <div class="impact-accent"></div>
-                <h3>Health &amp; Social Impact</h3>
-                <p>AI-powered solutions tackling real health challenges and social issues &mdash; not hypothetical, deployed.</p>
+            <div class="impact-card rv">                <h3>Health &amp; Social Impact</h3>
+                <p>AI for clinical decision support, public health, and accessibility &mdash; developed and tested with real partners.</p>
             </div>
-            <div class="impact-card rv">
-                <div class="impact-accent"></div>
-                <h3>Workforce &amp; Education</h3>
+            <div class="impact-card rv">                <h3>Workforce &amp; Education</h3>
                 <p>Training the next generation through certificates, degree programs, and hands-on industry partnerships in AI.</p>
             </div>
         </div>
@@ -1141,7 +1121,7 @@
         <div class="people-subsection" id="staff-scientists">
             <div class="subsection-title rv" style="text-align:center;">Staff Scientists</div>
             <div class="people-grid stg" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem">
-                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="kuba.jpg" alt="Kuba Jerzmanowski"></div><h4>Kuba Jerzmanowski</h4><div class="role">AI/ML Engineer I</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="kuba-new.jpg" alt="Kuba Jerzmanowski"></div><h4>Kuba Jerzmanowski</h4><div class="role">AI/ML Engineer I</div></div>
                 <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="chris-lee.png" alt="Christopher Lee"></div><h4>Christopher Lee</h4><div class="role">AI/ML Engineer II</div><div class="role" style="margin-top:0.3rem; color:var(--text-muted); font-size:0.68rem;">Sponsored by<br>College of Hospitality, Retail, and Sports Management</div></div>
                 <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="andrew-smith.jpg" alt="Andrew Smith"></div><h4>Andrew Smith</h4><div class="role">AI/ML Engineer II</div><div class="role" style="margin-top:0.3rem; color:var(--text-muted); font-size:0.68rem;">Sponsored by<br>Office of the Vice President for Research</div></div>
             </div>
@@ -1170,7 +1150,7 @@
             </div>
             <div class="about-text">
                 <div class="sec-title rv">About Aii SC</div>
-                <p class="rv">The AI Institute of South Carolina brings together researchers, engineers, and industry partners to solve the problems that matter. We bridge the gap between what AI can do in a lab and what it needs to do in the real world.</p>
+                <p class="rv">The AI Institute of South Carolina brings together researchers, engineers, and industry partners to move AI from the lab into real use &mdash; across healthcare, industry, and the public sector.</p>
                 <p class="rv">Our work spans natural language processing, knowledge graphs, computer vision, health informatics, and neuro-symbolic AI &mdash; always with an eye toward practical deployment.</p>
                 <div class="research-areas stg">
                     <span class="area-tag rv">Natural Language Processing</span>
