@@ -31,9 +31,13 @@ const STATE_DIR      = '/var/lib/aii-form';
 const STATE_FILE     = STATE_DIR . '/ratelimit.json';
 const LOG_FILE       = STATE_DIR . '/submissions.log';
 
-const PER_IP_LIMIT   = 3;      // submissions per IP (or IPv6 /64) ...
+// Sized against measured traffic: Apache logs for 15-29 Jul 2026 show exactly
+// one genuine submission (16 Jul). Legitimate use will never approach these.
+// A repeat of the 2026-07-28 incident (120 messages in 45 min) now delivers 5.
+// If campus NAT ever causes false positives, PER_IP_LIMIT is the dial to turn.
+const PER_IP_LIMIT   = 2;      // submissions per IP (or IPv6 /64) ...
 const PER_IP_WINDOW  = 3600;   // ... per hour
-const GLOBAL_LIMIT   = 40;     // total submissions from the whole form ...
+const GLOBAL_LIMIT   = 5;      // total submissions from the whole form ...
 const GLOBAL_WINDOW  = 3600;   // ... per hour. The real backstop.
 
 const MAX_NAME       = 120;
