@@ -183,7 +183,10 @@ $key = client_key();
 // Honeypot. Real browsers leave this hidden field empty; naive bots fill every
 // input they find. Report success so the bot has no signal to adapt to, but
 // send nothing.
-if (trim((string) ($_POST['website'] ?? '')) !== '') {
+//
+// The field is deliberately NOT called "website" or "url": password managers
+// autofill those, and a filled honeypot silently discards a genuine message.
+if (trim((string) ($_POST['contact_ref'] ?? '')) !== '') {
     log_submission($key, 'honeypot');
     json_out(200, ['status' => 'success']);
 }

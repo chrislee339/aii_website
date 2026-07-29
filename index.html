@@ -1150,7 +1150,10 @@
                     <div class="field"><label for="cName">Name</label><input id="cName" name="name" type="text" maxlength="120" autocomplete="name" placeholder="Your name" required></div>
                     <div class="field"><label for="cEmail">Email</label><input id="cEmail" name="email" type="email" maxlength="254" autocomplete="email" placeholder="you@example.com" required></div>
                     <div class="field"><label for="cMessage">Message</label><textarea id="cMessage" name="message" maxlength="4000" placeholder="Tell us about your project or question" required></textarea></div>
-                    <div class="hp-field" aria-hidden="true"><label for="cWebsite">Website</label><input id="cWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+                    <!-- Honeypot. Named to match no autofill heuristic: a manager
+                         filling a field called "website" would silently drop a real
+                         message. Off-screen, aria-hidden, and out of the tab order. -->
+                    <div class="hp-field" aria-hidden="true"><label for="cRef">Reference</label><input id="cRef" name="contact_ref" type="text" tabindex="-1" autocomplete="off"></div>
                     <button type="submit" class="submit-btn">Send Message</button>
                     <div class="c-form-msg" id="cFormMsg" role="status" aria-live="polite"></div>
                 </form>
