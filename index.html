@@ -645,41 +645,6 @@
             background: var(--garnet-bright); transform: translateY(-1px);
             box-shadow: 0 6px 18px rgba(204,46,64,0.4);
         }
-        .upcoming-badge {
-            position: absolute; top: 0.9rem; right: 0.9rem; z-index: 2;
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 0.9rem;
-            background: linear-gradient(90deg,
-                rgba(204,46,64,0.98) 0%,
-                rgba(115,0,10,0.98) 33%,
-                rgba(204,46,64,0.98) 66%,
-                rgba(115,0,10,0.98) 100%);
-            background-size: 300% 100%;
-            animation: badgeShift 5s ease-in-out infinite;
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            font-family: Impact, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
-            font-size: 0.72rem; font-weight: 700;
-            color: #ffffff; text-transform: uppercase; letter-spacing: 0.1em;
-            box-shadow: 0 6px 20px rgba(204,46,64,0.4),
-                        0 0 0 1px rgba(255,255,255,0.1) inset;
-        }
-        @keyframes badgeShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        .upcoming-badge .dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: #ffffff;
-            box-shadow: 0 0 0 0 rgba(255,255,255,0.6);
-            animation: pulseDot 1.8s ease-in-out infinite;
-        }
-        @keyframes pulseDot {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0.65); }
-            50% { box-shadow: 0 0 0 6px rgba(255,255,255,0); }
-        }
-        .service-card:hover .upcoming-badge { opacity: 0; transition: opacity 0.3s; }
-
         /* Highlight the card containing the upcoming series */
         #svc-workshop {
             border-radius: 14px;
@@ -721,10 +686,8 @@
             .service-card:hover .service-card-inner { transform: none; }
             .service-card:hover .service-front { pointer-events: auto; }
             .service-card:hover .service-front h3 { opacity: 1; }
-            .service-card:hover .upcoming-badge { opacity: 1; }
             .service-back { display: none; }
             .service-front h3 { font-size: 0.95rem; padding: 0.85rem; }
-            .upcoming-badge { font-size: 0.58rem; padding: 0.3rem 0.55rem; top: 0.5rem; right: 0.5rem; letter-spacing: 0.06em; }
         }
 
         /* ===== CTA BAND ===== */
@@ -1019,14 +982,12 @@
                 <div class="service-card-inner">
                     <div class="service-front">
                         <img src="svc-workshop.jpg" alt="Workshops & Training">
-                        <div class="upcoming-badge"><span class="dot"></span>Upcoming Series</div>
                         <h3>Workshops &amp; Training</h3>
                     </div>
                     <div class="service-back">
                         <h3>Workshops &amp; Training</h3>
                         <p>AI literacy, ChatGPT applications, hands-on sessions, and intensive training &mdash; from 2-hour intros to multi-day programs. Custom content available.</p>
                         <div class="includes"><span>Intro Workshops</span><span>Half &amp; Full Day</span><span>Custom Workshops</span></div>
-                        <a href="workshops.html" class="back-cta">View Summer 2026 Series →</a>
                     </div>
                 </div>
             </div>
