@@ -645,24 +645,7 @@
             background: var(--garnet-bright); transform: translateY(-1px);
             box-shadow: 0 6px 18px rgba(204,46,64,0.4);
         }
-        /* Highlight the card containing the upcoming series */
-        #svc-workshop {
-            border-radius: 14px;
-            animation: svcGlow 2.8s ease-in-out infinite;
-        }
-        #svc-workshop:hover { animation: none; }
-        @keyframes svcGlow {
-            0%, 100% {
-                box-shadow: 0 0 0 1px rgba(204,46,64,0.28),
-                            0 0 24px rgba(204,46,64,0.18),
-                            0 0 50px rgba(204,46,64,0.09);
-            }
-            50% {
-                box-shadow: 0 0 0 2px rgba(204,46,64,0.5),
-                            0 0 44px rgba(204,46,64,0.35),
-                            0 0 80px rgba(204,46,64,0.18);
-            }
-        }
+        #svc-workshop { border-radius: 14px; }
         #svc-workshop .service-front,
         #svc-workshop .service-back { border-radius: 14px; }
         #svc-bootcamp .service-front img { transform: scale(1.8); transform-origin: left center; }
@@ -1390,9 +1373,11 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
     form.addEventListener('submit', async e => {
         e.preventDefault();
 
-        const name = form.name.value.trim();
-        const email = form.email.value.trim();
-        const message = form.message.value.trim();
+        // By id, not form.name — that property collides with
+        // HTMLFormElement.name and only resolves to the input by legacy rule.
+        const name = document.getElementById('cName').value.trim();
+        const email = document.getElementById('cEmail').value.trim();
+        const message = document.getElementById('cMessage').value.trim();
         if (!name || !email || !message) {
             say('Please fill in your name, email, and message.', 'error');
             return;
