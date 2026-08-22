@@ -277,11 +277,6 @@
             0% { opacity: 0.5; transform: scale(1); }
             100% { opacity: 1; transform: scale(1.15); }
         }
-        /* neuron twinkle canvas */
-        .hero-twinkle {
-            position: absolute; inset: 0; z-index: 1; pointer-events: none;
-            transform: translateZ(0); will-change: contents;
-        }
 
         .hero-text { position: relative; z-index: 2; max-width: 620px; transform: translateZ(0); will-change: transform; backface-visibility: hidden; }
         .hero-label {
@@ -706,6 +701,7 @@
             display: flex; align-items: center; justify-content: center;
             font-size: 0.9rem; flex-shrink: 0;
         }
+        .c-icon svg { width: 18px; height: 18px; display: block; }
         .c-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
         .c-val { font-size: 0.95rem; font-weight: 500; color: var(--white); }
         .c-form {
@@ -838,7 +834,6 @@
             .ambient-blobs { display: none; }
             .hero-bg { animation: none; }
             .hero-glow { display: none; }
-            #twinkleCanvas { display: none; }
         }
 
         /* ===== HEADER: ALWAYS DARK (both light and dark themes) ===== */
@@ -925,7 +920,6 @@
 <!-- HERO -->
 <section class="hero" id="top">
     <div class="hero-bg"></div>
-    <canvas class="hero-twinkle" id="twinkleCanvas"></canvas>
     <div class="hero-glow hero-glow-1"></div>
     <div class="hero-glow hero-glow-2"></div>
     <div class="hero-glow hero-glow-3"></div>
@@ -939,19 +933,19 @@
 <section class="impact-section" id="what">
     <div class="wrap">
         <div class="sec-title rv">What We Do</div>
-        <div class="sec-desc rv">The Institute combines foundational AI research with applied work &mdash; building models and tools alongside partners in industry, healthcare, and government.</div>
+        <div class="sec-desc rv">We do foundational AI research and build real tools with partners in industry, healthcare, and government.</div>
         <div class="impact-grid stg">
             <div class="impact-card rv">                <h3>Industry Research</h3>
-                <p>Foundational and applied AI research across language, vision, and computational biology &mdash; work built both to publish and to deploy.</p>
+                <p>Foundational and applied AI research across language, vision, and computational biology.</p>
             </div>
             <div class="impact-card rv">                <h3>Patents &amp; Commercialization</h3>
-                <p>From SBIR/STTR projects to licensing deals, we turn research into products through active industry collaboration.</p>
+                <p>From SBIR/STTR projects to licensing deals, we turn research into products with industry partners.</p>
             </div>
             <div class="impact-card rv">                <h3>Health &amp; Social Impact</h3>
-                <p>AI for clinical decision support, public health, and accessibility &mdash; developed and tested with real partners.</p>
+                <p>AI for clinical decision support, public health, and accessibility, developed and tested with partners.</p>
             </div>
             <div class="impact-card rv">                <h3>Workforce &amp; Education</h3>
-                <p>Training the next generation through certificates, degree programs, and hands-on industry partnerships in AI.</p>
+                <p>Training students through certificates, degree programs, and hands-on industry partnerships in AI.</p>
             </div>
         </div>
     </div>
@@ -1009,7 +1003,7 @@
                     </div>
                     <div class="service-back">
                         <h3>Coding Bootcamps</h3>
-                        <p>Python and ML fundamentals, applied ML and deep learning, and comprehensive multi-day programs for teams ready to build.</p>
+                        <p>Python and ML fundamentals, applied ML and deep learning, and multi-day programs for teams ready to build.</p>
                         <div class="includes"><span>3-Hour Bootcamp</span><span>6-Hour Extended</span><span>12-Hour Multi-Day</span></div>
                     </div>
                 </div>
@@ -1042,7 +1036,7 @@
             </div>
         </div>
         <div class="services-cta rv">
-            <p><strong>Ongoing maintenance, project management, and full-year engagements also available. Every partnership is different &mdash; let's find the right fit.</strong></p>
+            <p><strong>Ongoing maintenance, project management, and full-year engagements also available.</strong></p>
             <a href="#contact" class="btn btn-primary">Contact Us for Details</a>
         </div>
     </div>
@@ -1079,7 +1073,7 @@
         <div class="people-subsection" id="staff-scientists">
             <div class="subsection-title rv" style="text-align:center;">Staff Scientists</div>
             <div class="people-grid stg" style="display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem">
-                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="kuba-new.jpg" alt="Kuba Jerzmanowski"></div><h4>Kuba Jerzmanowski</h4><div class="role">AI/ML Engineer I</div></div>
+                <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="kuba-v2.jpg" alt="Kuba Jerzmanowski"></div><h4>Kuba Jerzmanowski</h4><div class="role">AI/ML Engineer I</div></div>
                 <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="chris-lee.png" alt="Christopher Lee"></div><h4>Christopher Lee</h4><div class="role">AI/ML Engineer II</div><div class="role" style="margin-top:0.3rem; color:var(--text-muted); font-size:0.68rem;">Sponsored by<br>College of Hospitality, Retail, and Sports Management</div></div>
                 <div class="person rv" style="width:190px; flex-shrink:0"><div class="avatar"><img src="andrew-smith.jpg" alt="Andrew Smith"></div><h4>Andrew Smith</h4><div class="role">AI/ML Engineer II</div><div class="role" style="margin-top:0.3rem; color:var(--text-muted); font-size:0.68rem;">Sponsored by<br>Office of the Vice President for Research</div></div>
             </div>
@@ -1108,8 +1102,8 @@
             </div>
             <div class="about-text">
                 <div class="sec-title rv">About Aii SC</div>
-                <p class="rv">The AI Institute of South Carolina brings together researchers, engineers, and industry partners to move AI from the lab into real use &mdash; across healthcare, industry, and the public sector.</p>
-                <p class="rv">Our work spans natural language processing, knowledge graphs, computer vision, health informatics, and neuro-symbolic AI &mdash; always with an eye toward practical deployment.</p>
+                <p class="rv">The AI Institute of South Carolina pairs researchers and engineers with industry partners to move AI from the lab into real use in healthcare, industry, and government.</p>
+                <p class="rv">Our work spans natural language processing, knowledge graphs, computer vision, health informatics, and neuro-symbolic AI, with a focus on deployment.</p>
                 <div class="research-areas stg">
                     <span class="area-tag rv">Natural Language Processing</span>
                     <span class="area-tag rv">Knowledge Graphs</span>
@@ -1125,9 +1119,9 @@
 
 <!-- CTA -->
 <div class="cta-band">
-    <h2 class="rv">Ready to build something with AI?</h2>
-    <p class="rv">We partner with companies, agencies, and organizations to solve hard problems.</p>
-    <a href="#contact" class="btn btn-primary rv">Let's Talk</a>
+    <h2 class="rv">Have an AI project in mind?</h2>
+    <p class="rv">We partner to solve problems and help understand AI.</p>
+    <a href="#contact" class="btn btn-primary rv">Get in touch</a>
 </div>
 
 <!-- CONTACT -->
@@ -1137,11 +1131,11 @@
             <div class="contact-left">
                 <div class="sec-label rv">Contact</div>
                 <div class="sec-title rv">Reach Out</div>
-                <p class="rv">Whether you want to collaborate on research, explore a partnership, or just learn more &mdash; we're here.</p>
+                <p class="rv">Reach out about research, partnerships, or anything else.</p>
                 <div class="c-items">
-                    <div class="c-item rv"><div class="c-icon">&#x1F4CD;</div><div><div class="c-lbl">Address</div><div class="c-val">1112 Greene St., Room 513<br>Columbia, SC 29208</div></div></div>
-                    <div class="c-item rv"><div class="c-icon">&#x1F4DE;</div><div><div class="c-lbl">Phone</div><div class="c-val">+1 (803) 777-7979</div></div></div>
-                    <div class="c-item rv"><div class="c-icon">&#x2709;&#xFE0F;</div><div><div class="c-lbl">Email</div><div class="c-val">aiisc@mailbox.sc.edu</div></div></div>
+                    <div class="c-item rv"><div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="c-lbl">Address</div><div class="c-val">1112 Greene St., Room 513<br>Columbia, SC 29208</div></div></div>
+                    <div class="c-item rv"><div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="c-lbl">Phone</div><div class="c-val">+1 (803) 777-7979</div></div></div>
+                    <div class="c-item rv"><div class="c-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div><div class="c-lbl">Email</div><div class="c-val">aiisc@mailbox.sc.edu</div></div></div>
                 </div>
             </div>
             <div class="c-form rv">
@@ -1251,113 +1245,6 @@ document.querySelectorAll('a[href^="#"]').forEach(a => a.addEventListener('click
     if(t) t.scrollIntoView({behavior:'smooth'});
 }));
 
-
-// neural network animation
-(function(){
-    const canvas = document.getElementById('twinkleCanvas');
-    const ctx = canvas.getContext('2d');
-    const NODES = 60;
-    const CONNECTION_DIST = 160;
-    const SIGNAL_CHANCE = 0.003;
-    let nodes = [], signals = [];
-
-    function resize() {
-        const hero = canvas.parentElement;
-        canvas.width = hero.offsetWidth;
-        canvas.height = hero.offsetHeight;
-        if (nodes.length === 0) init();
-    }
-
-    function init() {
-        nodes = [];
-        for (let i = 0; i < NODES; i++) {
-            nodes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                vx: (Math.random() - 0.5) * 0.4,
-                vy: (Math.random() - 0.5) * 0.4,
-                r: Math.random() * 1.8 + 0.8
-            });
-        }
-    }
-
-    resize();
-    window.addEventListener('resize', resize);
-
-    function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // move nodes
-        nodes.forEach(n => {
-            n.x += n.vx;
-            n.y += n.vy;
-            if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
-            if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
-        });
-
-        // draw connections
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const dx = nodes[i].x - nodes[j].x;
-                const dy = nodes[i].y - nodes[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < CONNECTION_DIST) {
-                    const alpha = (1 - dist / CONNECTION_DIST) * 0.15;
-                    ctx.beginPath();
-                    ctx.moveTo(nodes[i].x, nodes[i].y);
-                    ctx.lineTo(nodes[j].x, nodes[j].y);
-                    ctx.strokeStyle = 'rgba(204,80,100,' + alpha.toFixed(3) + ')';
-                    ctx.lineWidth = 0.6;
-                    ctx.stroke();
-
-                    // randomly fire a signal along this connection
-                    if (Math.random() < SIGNAL_CHANCE) {
-                        signals.push({
-                            x: nodes[i].x, y: nodes[i].y,
-                            tx: nodes[j].x, ty: nodes[j].y,
-                            progress: 0,
-                            speed: 0.012 + Math.random() * 0.015
-                        });
-                    }
-                }
-            }
-        }
-
-        // draw & update signals (traveling pulses)
-        signals = signals.filter(s => s.progress <= 1);
-        signals.forEach(s => {
-            s.progress += s.speed;
-            const cx = s.x + (s.tx - s.x) * s.progress;
-            const cy = s.y + (s.ty - s.y) * s.progress;
-            const a = Math.sin(s.progress * Math.PI);
-            // bright pulse
-            ctx.beginPath();
-            ctx.arc(cx, cy, 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(255,200,210,' + (a * 0.9).toFixed(2) + ')';
-            ctx.fill();
-            // glow
-            ctx.beginPath();
-            ctx.arc(cx, cy, 8, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(204,80,100,' + (a * 0.2).toFixed(2) + ')';
-            ctx.fill();
-        });
-
-        // draw nodes
-        nodes.forEach(n => {
-            ctx.beginPath();
-            ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(220,140,160,0.5)';
-            ctx.fill();
-            ctx.beginPath();
-            ctx.arc(n.x, n.y, n.r * 2.5, 0, Math.PI * 2);
-            ctx.fillStyle = 'rgba(204,80,100,0.1)';
-            ctx.fill();
-        });
-
-        requestAnimationFrame(draw);
-    }
-    draw();
-})();
 
 // Contact form. Posts to send.php, which enforces the real validation and
 // rate limits — everything here is convenience, not a security control.
